@@ -63,7 +63,7 @@ module.exports.createNewMenu = (req, res, next) => {
 
 
 module.exports.updateMenuById = (req, res, next) => {
-    Menu.findOne({ _id: req.params.id })
+    Menu.findOne({ kitchen: req.params.id })
         .then((data) => {
             console.log(data);
             let bodyData = req.body;
@@ -93,7 +93,7 @@ module.exports.updateMenuById = (req, res, next) => {
 }
 
 module.exports.deleteMenuItemById = (req, res, next) => {
-    Menu.updateOne({ _id: req.params.id }, { $pull: { menuItems: { $eq: req.body.menuItems } } })
+    Menu.updateOne({ kitchen: req.params.id }, { $pull: { menuItems: { $eq: req.body.menuItems } } })
         .then(data => {
             console.log(data)
             if (data.modifiedCount == 0) next(new Error("item not found"));
@@ -103,7 +103,7 @@ module.exports.deleteMenuItemById = (req, res, next) => {
 
 module.exports.deleteMenuById = (req, res
     , next) => {
-    Menu.deleteOne({ _id: req.params.id })
+    Menu.deleteOne({ kitchen: req.params.id })
         .then(data => {
 
             if (data.deletedCount == 0) next(new Error("Menu not found"));

@@ -5,10 +5,11 @@ module.exports = (req, res, next) => {
         let token = req.get("Authorization").split(" ")[1];
 
         let decoded = jwt.verify(token, "yummy secret sauce");
-        //  console.log(decoded);
+        // console.log(decoded);
 
         req.role = decoded.role;
         req.id = decoded.id;
+        req.orders = decoded.orders;
         next();
     }
     catch (error) {

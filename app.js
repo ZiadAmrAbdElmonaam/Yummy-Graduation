@@ -8,6 +8,7 @@ const kitchenRoute = require("./routes/kitchenRoute");
 const menuRoute = require("./routes/menuRoute");
 const itemRoute = require("./routes/itemRoute");
 const orderRoute = require("./routes/orderRoute");
+const loginRoute = require("./routes/loginRoute");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -41,7 +42,7 @@ server.use(cors({}))
 
 //end Routes
 server.use([express.json(), express.urlencoded({ extended: false })])
-server.use([pilotRoute, userRoute, kitchenRoute, menuRoute, itemRoute, orderRoute])
+server.use([pilotRoute, userRoute, kitchenRoute, menuRoute, itemRoute, orderRoute, loginRoute])
 
 
 

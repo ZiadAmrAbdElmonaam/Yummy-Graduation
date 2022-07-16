@@ -1,40 +1,102 @@
-const express = require('express');
-const Login = require('../models/login');
+const User = require('../models/userSchema');
+const kitchen = require('../models/kitchenSchema');
+const pilot = require('../models/pilotSchema');
 const jwt = require("jsonwebtoken");
+const bycrypt = require("bcrypt");
+module.exports.login = (req, res, next) => {
 
-// login controller for login route 
-const loginController = {
-    login: (req, res, next) => {
-        Login.findOne({ email: req.body.email })
+    if (req.body.role === "user") {
+        User.findOne({
+            userEmail: req.body.email
+        })
+
             .then(data => {
-                if (data) {
-                    if (data.password === req.body.password) {
-                        let token = jwt.sign({
-                            id: data._id,
-                            email: data.email,
-                            role: data.role
-                        }, process.env.secret, { expiresIn: "1h" });
-                        res.status(200).json({
-                            message: "Login successful",
-                            token: token
-                        });
+                bycrypt.compare(req.body.password, data.userPassword).then(isEqual => {
+                    if (!isEqual) {
+                        res.status(401).json({ data: 'invalid email or password' })
                     }
                     else {
-                        res.status(401).json({
-                            message: "Invalid password"
-                        });
+                        let token = jwt.sign(
+                            {
+                                orders: data.userOrder,
+                                id: data._id,
+                                role: "user",
+                                userEmail: req.body.email
+                            },
+                            process.env.secret, { expiresIn: "1h" })
+                        console.log(data._id)
+                        res.status(200).json({ token, msg: "login" })
+
+
                     }
-                }
-                else {
-                    res.status(401).json({
-                        message: "Invalid email"
-                    });
-                }
-            }
-            ).catch(error => {
-                next(error)
-            }
-            )
+                })
+            })
+            .catch(error => next(error))
     }
+    else if (req.body.role == "kitchen") {
+        kitchen.findOne({
+            kitchenEmail: req.body.email
+        })
+
+            .then(data => {
+                bycrypt.compare(req.body.password, data.kitchenPassword).then(isEqual => {
+                    if (!isEqual) {
+                        res.status(401).json({ data: 'invalid email or password' })
+                    }
+                    else {
+                        let token = jwt.sign(
+                            {
+                                orders: data.kitchenOrders,
+                                id: data._id,
+                                role: "kitchen",
+                                kitchenEmail: req.body.email
+                            },
+                            process.env.secret, { expiresIn: "1h" })
+                        // console.log("our id",{id:data._id})
+                        res.status(200).json({ token, msg: "login" })
+                    }
+                })
+            })
+            .catch(error => next(error))
+    }
+    else if (req.body.role == "pilot") {
+        pilot.findOne({
+            _id: req.body.email
+        })
+
+            .then(data => {
+                bycrypt.compare(req.body.password, data.pilotPassword).then(isEqual => {
+                    if (!isEqual) {
+                        res.status(401).json({ data: 'invalid email or password' })
+                    }
+                    else {
+                        let token = jwt.sign(
+                            {
+                                orders: data.orders,
+                                id: data._id,
+                                role: "pilot",
+                                _id: req.body.email
+                            },
+
+                            process.env.secret, { expiresIn: "1h" })
+                        // console.log("our id",{id:data._id})
+                        res.status(200).json({ token, msg: "login" })
+                    }
+                })
+            })
+            .catch(error => next(error))
+    }
+
+
+    else {
+
+        throw new Error("role not found")
+    }
+
+
 }
-module.exports = loginController;
+
+
+
+
+

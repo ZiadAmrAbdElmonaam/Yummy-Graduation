@@ -9,6 +9,7 @@ const itemSchema = new mongoose.Schema({
     itemImage: { type: String },
     itemStatus: { type: String, required: true, default: "not avilable", enum: ["avilable", "not avilable"] },
     itemCatogery: { type: String, required: true },
+    kitchenId: { type: Number, required: true, ref: "Kitchen" },
 });
 
 

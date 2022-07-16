@@ -39,6 +39,7 @@ module.exports.createNewItem = (req, res, next) => {
         itemImage: req.body.itemImage,
         itemStatus: req.body.itemStatus,
         itemCatogery: req.body.itemCatogery,
+        kitchenId: req.body.kitchenId
     });
     itemObject.save()
         .then((data) => {
@@ -49,7 +50,7 @@ module.exports.createNewItem = (req, res, next) => {
 }
 //update item by id
 module.exports.updateItemById = (req, res, next) => {
-    Item.updateOne({ _id: req.params.id },
+    Item.updateOne({ _id: req.params.id, kitchenId: req.body.kitchenId },
         {
             $set:
                 req.body
@@ -65,7 +66,7 @@ module.exports.updateItemById = (req, res, next) => {
 }
 //delete item by id
 module.exports.deleteItemById = (req, res, next) => {
-    Item.deleteOne({ _id: req.params.id })
+    Item.deleteOne({ _id: req.params.id, kitchenId: req.body.kitchenId })
         .then(data => {
             if (data.deletedCount == 0) next(new Error("Item not found"));
             else

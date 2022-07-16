@@ -37,6 +37,4 @@ exports.menuValidationDeleteMenuItem = [
     param("id")
         .notEmpty().withMessage("id is required")
         .isString().withMessage("id must be a string")
-        .isLength({ min: 3, max: 50 })
-        .withMessage("id must be between 3 and 50 characters long"),
 ]

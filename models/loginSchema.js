@@ -2,23 +2,23 @@ const mongoose = require("mongoose")
 const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const loginSchema = new mongoose.Schema({
-    // ref to user and kitchen 
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-    kitchen: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Kitchen"
-    },
-    // role of user
-    role: {
+    email: {
         type: String,
-        enum: ["admin", "user"],
-        default: "user"
+        required: true
     },
-}
-)
+    password: {
+        type: String,
+        required: true,
+        minlength: 8,
+        maxlength: 60
+    },
+    type: {
+        type: String,
+        required: true,
+        enum: ['user', "pilot", "kitchen"],
+        default: 'user'
+    },
+})
 
 loginSchema.plugin(AutoIncrement, { id: "loginCounter" });
 module.exports = mongoose.model("login", loginSchema)

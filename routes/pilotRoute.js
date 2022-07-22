@@ -5,24 +5,39 @@ const router = express.Router();
 const pilotController = require("../controllers/pilotController");
 const authMw = require("../MW/authMw");
 const { pilotValidationDeleteOrder, pilotsValidationAdd, pilotsValidationUpdate, pilotsValidationDelete } = require("../MW/pilotMW");
+const authMW = require("../MW/authMw");
+
+
 
 //image 
 
 // get all pilots
 router.route("/pilot")
 
-    .get(pilotController.getAllpilots)
+    .get(authMW,
+        (req, res, next) => {
+            if (req.role === "admin") {
+                next();
+            }
+            else {
+                res.status(403).json({ msg: "just Admins can access this route " })
+            }
+        }
+        , pilotController.getAllpilots)
 
 
 // sign up pilots
 router.route("/pilot/signUp")
 
-    .post(pilotsValidationAdd, mwError, pilotController.addPilot)
+    .post(pilotsValidationAdd, mwError,
+
+        pilotController.addPilot)
 
 // get pilot by nationalID
 router.route("/pilot/:nationalID")
     .all(authMw, (req, res, next) => {
-        if (req.role == "pilot" && req.id == req.params.nationalID) {
+        if (((req.role == "pilot") && req.id == req.params.nationalID)
+            || (req.role == "admin")) {
             next();
         }
         else {
@@ -39,7 +54,7 @@ router.route("/pilot/:nationalID")
 
 router.route("/pilotOrders/:nationalID")
     .all(authMw, (req, res, next) => {
-        if (req.role == "pilot" && req.id == req.params.nationalID) {
+        if (((req.role == "pilot") || (req.role == "admin")) && req.id == req.params.nationalID) {
             next();
         }
         else {

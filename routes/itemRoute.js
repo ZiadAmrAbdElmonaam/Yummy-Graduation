@@ -8,7 +8,16 @@ const { itemValidationAdd, itemValidationUpdate, itemValidationDelete } = requir
 
 
 router.route('/item')
-    .get(mwError, ItemController.getAllItem)
+    .get(authMW,
+        (req, res, next) => {
+            if (req.role === "admin") {
+                next();
+            }
+            else {
+                res.status(403).json({ msg: "just Admins can access this route " })
+            }
+        }
+        , mwError, ItemController.getAllItem)
     .post(authMW,
         (req, res, next) => {
             if (req.role == "kitchen" && req.id == req.body.kitchenId) {
@@ -25,7 +34,8 @@ router.route('/menuItem/:id')
     .get(mwError, ItemController.getItemById)
     .all(authMW,
         (req, res, next) => {
-            if (req.role == "kitchen" && req.id == req.body.kitchenId) {
+            if ((req.role == "kitchen" && req.id == req.body.kitchenId)
+                || (req.role == "admin")) {
                 next();
             }
             else {

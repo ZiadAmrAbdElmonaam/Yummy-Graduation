@@ -37,11 +37,43 @@ server.use(morgan('dev', {
 server.get('/', (req, res) => {
     res.send('hello from main page')
 });
+
+//image 
+const multer = require("multer");
+const upload = multer(
+    {
+
+        limits: {
+            fileSize: 10000000
+        },
+        fileFilter(req, file, cb) {
+
+            if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+                return cb(new Error("Please upload an image"));
+            }
+            cb(undefined, true)
+        },
+        storage: multer.diskStorage({
+            destination: (req, file, callback) => {
+                callback(null, "./avatars/pilots/");
+            },
+            filename: function (req, file, callback) {
+                console.log(req.body);
+                const newImageName = `${Date.now()}`;
+                console.log("ahmeddd");
+                console.log(newImageName);
+                callback(null, newImageName)
+            }
+        })
+    }
+)
 //cors 
 server.use(cors({}))
 
+
+
 //end Routes
-server.use([express.json(), express.urlencoded({ extended: false })])
+server.use([express.json(), express.urlencoded({ extended: false }), upload.single("image")]);
 server.use([pilotRoute, userRoute, kitchenRoute, menuRoute, itemRoute, orderRoute, loginRoute])
 
 

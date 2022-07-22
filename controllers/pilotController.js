@@ -32,7 +32,7 @@ module.exports.getpilotById = (req, res, next) => {
 module.exports.addPilot = (req, res, next) => {
     bcrypt.hash(req.body.pilotPassword, 10).then((hashpass) => {
 
-
+        let path = `./avatars/pilots/${req.file.filename}.jpg`;
         let pilotObject = new Pilot({
             _id: req.body.nationalID,
             pilotStatus: req.body.pilotStatus,
@@ -40,7 +40,7 @@ module.exports.addPilot = (req, res, next) => {
             orders: req.body.orders,
             pilotNumber: req.body.pilotNumber,
             pilotNotes: req.body.pilotNotes,
-            pilotLisenceImage: req.body.pilotLisenceImage,
+            pilotLisenceImage: path,
             pilotPassword: hashpass
 
         });

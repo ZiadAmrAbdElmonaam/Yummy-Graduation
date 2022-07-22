@@ -9,7 +9,8 @@ const { kitchenValidationAdd, kitchenValidationUpdate, kitchenValidationDelete, 
 router.route("/kitchen/:id")
     .all(authMw, (req, res, next) => {
 
-        if (req.role == "kitchen" && req.id == req.params.id) {
+        if ((req.role == "kitchen" && req.id == req.params.id)
+            || (req.role == "admin")) {
             console.log("kitchen id", req.id)
             next();
         }
@@ -28,7 +29,18 @@ router.route("/kitchen/:id")
 
 router.route("/kitchen")
 
-    .get(mwError, KitchenController.getAllkitchen)
+    .get(authMw,
+        (req, res, next) => {
+            if (req.role == "admin") {
+
+                next();
+            }
+            else {
+
+                res.status(403).json({ msg: "just Admins can access this route " })
+            }
+        }
+        , mwError, KitchenController.getAllkitchen)
 
     .post(kitchenValidationAdd, mwError, KitchenController.createNewKitchen)
 
@@ -38,7 +50,8 @@ router.route("/kitchen")
 router.route("/kitchenOrders/:id")
     .all(authMw, (req, res, next) => {
 
-        if (req.role == "kitchen" && req.id == req.params.id) {
+        if ((req.role == "kitchen" && req.id == req.params.id)
+            || (req.role == "admin")) {
             console.log("kitchen id", req.id)
             next();
         }

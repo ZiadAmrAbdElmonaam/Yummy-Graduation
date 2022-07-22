@@ -4,7 +4,7 @@ module.exports = (req, res, next) => {
     try {
         let token = req.get("Authorization").split(" ")[1];
 
-        let decoded = jwt.verify(token, "yummy secret sauce");
+        let decoded = jwt.verify(token, process.env.secret);
         // console.log(decoded);
 
         req.role = decoded.role;

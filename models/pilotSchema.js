@@ -9,7 +9,7 @@ const pilotSchema = new mongoose.Schema({
     orders: [{ type: Number, ref: "orders", required: true, default: [] }],
     pilotNumber: { type: Number, required: true, unique: true, length: 11 },
     pilotNotes: { type: String },
-    pilotLisenceImage: { type: String, required: false },
+    pilotLisenceImage: { type: String, required: true },
     pilotPassword: { type: String, required: true, minlength: 8 }
 }
     , {

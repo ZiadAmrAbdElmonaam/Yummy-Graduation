@@ -7,7 +7,16 @@ const { menuValidationAdd, menuValidationUpdate, menuValidationdelete, menuValid
 
 
 router.route('/menu')
-    .get(MenuController.getAllMenu)
+    .get(authMw,
+        (req, res, next) => {
+            if (req.role === "admin") {
+                next();
+            }
+            else {
+                res.status(403).json({ msg: "just Admins can access this route " })
+            }
+        }
+        , MenuController.getAllMenu)
     .post(
         authMw,
         (req, res, next) => {
@@ -28,7 +37,8 @@ router.route('/menu/:id')
     .get(mwError, MenuController.getMenuById)
 
     .all(authMw, (req, res, next) => {
-        if (req.role == "kitchen" && req.id == req.params.id) {
+        if ((req.role == "kitchen" && req.id == req.params.id)
+            || (req.role == "admin")) {
             next();
         }
         else {
@@ -46,7 +56,8 @@ router.route('/menu/:id')
 router.route("/menu/item/:id")
 
     .delete(authMw, (req, res, next) => {
-        if (req.role == "kitchen" && req.id == req.params.id) {
+        if ((req.role == "kitchen" && req.id == req.params.id)
+            || (req.role == "admin")) {
             next();
         }
         else {

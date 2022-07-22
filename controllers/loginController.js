@@ -3,9 +3,12 @@ const kitchen = require('../models/kitchenSchema');
 const pilot = require('../models/pilotSchema');
 const jwt = require("jsonwebtoken");
 const bycrypt = require("bcrypt");
+const adminUserName = "admin";
+const adminPassword = "admin";
 module.exports.login = (req, res, next) => {
 
     if (req.body.role === "user") {
+        console.log("hi");
         User.findOne({
             userEmail: req.body.email
         })
@@ -24,8 +27,10 @@ module.exports.login = (req, res, next) => {
                                 userEmail: req.body.email
                             },
                             process.env.secret, { expiresIn: "1h" })
-                        console.log(data._id)
+                        // console.log(data._id)
                         res.status(200).json({ token, msg: "login" })
+                        console.log("login", res)
+
 
 
                     }
@@ -85,6 +90,17 @@ module.exports.login = (req, res, next) => {
                 })
             })
             .catch(error => next(error))
+    }
+
+    else if (req.body.email == adminUserName && req.body.password == adminPassword) {
+        let token = jwt.sign(
+            {
+                role: "admin",
+
+            },
+            process.env.secret, { expiresIn: "1h" })
+        res.status(200).json({ token })
+
     }
 
 

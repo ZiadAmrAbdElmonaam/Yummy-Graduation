@@ -7,14 +7,24 @@ const { userValaidationAdd, userValaidationUpdate, userValaidationDelete, userVa
 
 
 router.route("/user")
-    .get(userController.getAllUsers)
+    .get(authMw,
+        (req, res, next) => {
+            if (req.role === "admin") {
+                next();
+            }
+            else {
+                res.status(403).json({ msg: "just Admins can access this route " })
+            }
+        }
+
+        , userController.getAllUsers)
 
     .post(userValaidationAdd, mwError, userController.addUser)
 
 router.route("/user/:id")
     .all(authMw, (req, res, next) => {
 
-        if (req.role == "user" && req.id == req.params.id) {
+        if (((req.role == "user") || (req.role == "admin")) && req.id == req.params.id) {
             console.log("user id", req.id)
             next();
         }
@@ -43,7 +53,7 @@ router.route("/user/:id")
 router.route("/userOrders/:id")
     .all(authMw, (req, res, next) => {
 
-        if (req.role == "user" && req.id == req.params.id) {
+        if (((req.role == "user") || (req.role === "admin")) && req.id == req.params.id) {
             console.log("user id", req.id)
             next();
         }

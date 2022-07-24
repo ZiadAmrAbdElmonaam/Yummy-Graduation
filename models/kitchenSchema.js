@@ -21,6 +21,7 @@ const kitchenSchema = new mongoose.Schema({
     default: "all",
     enum: ["vegetarian", "non-vegetarian", "frozen", "all"],
   },
+  menuId: { type: Number, ref: "menus", required: true },
   kitchenAddress: { type: kitchenAddressSchema, _id: false },
   kitchenPhone: {
     type: Number,

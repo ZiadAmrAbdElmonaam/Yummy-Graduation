@@ -12,9 +12,7 @@ exports.itemValidationAdd = [
     .notEmpty()
     .withMessage("itemDescription is required")
     .isString()
-    .withMessage("itemDescription must be a string")
-    .isLength({ min: 1, max: 25 })
-    .withMessage("itemDescription must be between 1 and 25 characters long"),
+    .withMessage("itemDescription must be a string"),
   body("itemPrice")
     .notEmpty()
     .withMessage("itemPrice is required")

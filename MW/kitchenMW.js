@@ -72,6 +72,11 @@ exports.kitchenValidationAdd = [
     .withMessage(
       "kitchenAddress.street must be between 3 and 50 characters long"
     ),
+  body("menuId")
+    .notEmpty()
+    .withMessage("menu id is required")
+    .isNumeric()
+    .withMessage("menu id must be Number"),
   body("kitchenAddress.buildingNumber")
     .notEmpty()
     .withMessage("kitchenAddress.buildingNumber is required")
@@ -110,6 +115,7 @@ exports.kitchenValidationUpdate = [
     .withMessage("kitchenCategeory must be a string")
     .isLength({ min: 3, max: 50 })
     .withMessage("kitchenCategeory must be between 3 and 50 characters long"),
+  body("menuId").optional().isNumeric().withMessage("menu id must be number"),
   body("kitchenPhone")
     .optional()
     .isNumeric()

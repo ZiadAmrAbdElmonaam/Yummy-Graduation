@@ -17,7 +17,21 @@ module.exports.getAllkitchen = (req, res, next) => {
 //get Kitchen by Id
 module.exports.getkitchenById = (req, res, next) => {
   Kitchen.findOne({ _id: req.params.id })
-    .populate((path = "menuId"))
+    .populate({
+      path: "menuId",
+      select: {
+        _id: 0,
+        kitchen: 0,
+      },
+      populate: [
+        {
+          path: "menuItems",
+          select: {
+            kitchenId: 0,
+          },
+        },
+      ],
+    })
     .then((data) => {
       if (data == null) next(new Error("kitchen not found"));
       else res.status(200).json(data);

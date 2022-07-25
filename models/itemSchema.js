@@ -6,7 +6,11 @@ const itemSchema = new mongoose.Schema({
   itemName: { type: String, required: true },
   itemDescription: { type: String },
   itemPrice: { type: Number, required: true },
-  itemImage: { type: String },
+  itemImage: {
+    type: String,
+    required: true,
+    default: "https://www.w3schools.com/howto/img_avatar.png",
+  },
   itemStatus: {
     type: String,
     required: true,

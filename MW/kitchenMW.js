@@ -68,10 +68,7 @@ exports.kitchenValidationAdd = [
     .withMessage("kitchenAddress.street is required")
     .isString()
     .withMessage("kitchenAddress.street must be a string")
-    .isLength({ min: 3, max: 50 })
-    .withMessage(
-      "kitchenAddress.street must be between 3 and 50 characters long"
-    ),
+    ,
   body("menuId")
     .notEmpty()
     .withMessage("menu id is required")

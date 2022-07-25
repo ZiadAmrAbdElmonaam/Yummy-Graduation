@@ -32,18 +32,7 @@ router
 router
   .route("/kitchen")
 
-  .get(
-    // authMw,
-    // (req, res, next) => {
-    //   if (req.role == "admin") {
-    //     next();
-    //   } else {
-    //     res.status(403).json({ msg: "just Admins can access this route " });
-    //   }
-    // },
-    // mwError,
-    KitchenController.getAllkitchen
-  )
+  .get(mwError, KitchenController.getAllkitchen)
 
   .post(kitchenValidationAdd, mwError, KitchenController.createNewKitchen);
 

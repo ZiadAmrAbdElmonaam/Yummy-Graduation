@@ -54,13 +54,14 @@ module.exports.getkitchenById = (req, res, next) => {
 //create new Kitchen
 module.exports.createNewKitchen = (req, res, next) => {
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
+    let path = `./avatars/images/${req.file.filename}`;
     let kitchenObject = new Kitchen({
       kitchenName: req.body.kitchenName,
       kitchenCategeory: req.body.kitchenCategeory,
       kitchenAddress: req.body.kitchenAddress,
       kitchenPhone: req.body.kitchenPhone,
       kitchenEmail: req.body.kitchenEmail,
-      kitchenImage: req.body.kitchenImage,
+      kitchenImage: path,
       kitchenPassword: hashpass,
       kitchenOrders: req.body.kitchenOrders,
       kitchenRating: req.body.kitchenRating,
@@ -85,7 +86,7 @@ module.exports.updateKitchen = (req, res, next) => {
     .then((data) => {
       let bodyData = req.body;
       for (let key in bodyData) {
-        console.log("key    " + key);
+        console.log("key " + key);
 
         if (key == "kitchenOrders") {
           if (

@@ -31,12 +31,12 @@ module.exports.getItemById = (req, res
 }
 //create new item
 module.exports.createNewItem = (req, res, next) => {
-
+    let path = `./avatars/images/${req.file.filename}`;
     let itemObject = new Item({
         itemName: req.body.itemName,
         itemDescription: req.body.itemDescription,
         itemPrice: req.body.itemPrice,
-        itemImage: req.body.itemImage,
+        itemImage: path,
         itemStatus: req.body.itemStatus,
         itemCatogery: req.body.itemCatogery,
         kitchenId: req.body.kitchenId

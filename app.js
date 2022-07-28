@@ -1,6 +1,6 @@
 const express = require("express");
 const server = express();
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
 const morgan = require("morgan");
 const pilotRoute = require("./routes/pilotRoute");
 const userRoute = require("./routes/userRoute");
@@ -12,79 +12,83 @@ const loginRoute = require("./routes/loginRoute");
 const cors = require("cors");
 require("dotenv").config();
 
-
-
-
 //connect database
-mongoose.connect(process.env.DB_URL)
-    .then(() => {
-        console.log("db Connected ")
-        server.listen(process.env.port || 8080, () => {
-            console.log("Hi iam listening to Server with port 8080")
-        });
-    })
-    .catch(() => {
-        console.log("db connection error")
-    })
-
-
+mongoose
+  .connect(process.env.DB_URL)
+  .then(() => {
+    console.log("db Connected ");
+    server.listen(process.env.port || 8080, () => {
+      console.log("Hi iam listening to Server with port 8080");
+    });
+  })
+  .catch(() => {
+    console.log("db connection error");
+  });
 
 // use morgan middleWare
-server.use(morgan('dev', {
-    skip: (req, res) => { res.statusCode < 400 }
-}));
+server.use(
+  morgan("dev", {
+    skip: (req, res) => {
+      res.statusCode < 400;
+    },
+  })
+);
 
-server.get('/', (req, res) => {
-    res.send('hello from main page')
+server.get("/", (req, res) => {
+  res.send("hello from main page");
 });
 
-//image 
+//image
 const multer = require("multer");
-const upload = multer(
-    {
-
-        limits: {
-            fileSize: 10000000
-        },
-        fileFilter(req, file, cb) {
-
-            if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-                return cb(new Error("Please upload an image"));
-            }
-            cb(undefined, true)
-        },
-        storage: multer.diskStorage({
-            destination: (req, file, callback) => {
-                callback(null, "./avatars/pilots/");
-            },
-            filename: function (req, file, callback) {
-                console.log(req.body);
-                const newImageName = `${Date.now()}`;
-                console.log("ahmeddd");
-                console.log(newImageName);
-                callback(null, newImageName)
-            }
-        })
+const upload = multer({
+  limits: {
+    fileSize: 10000000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("Please upload an image"));
     }
-)
-//cors 
-server.use(cors({}))
-
-
+    cb(undefined, true);
+  },
+  storage: multer.diskStorage({
+    destination: (req, file, callback) => {
+      callback(null, "./avatars/kitchen/");
+    },
+    filename: function (req, file, callback) {
+      console.log(req.body);
+      const newImageName = `${Date.now()}.jpg`;
+      console.log("ahmeddd");
+      console.log(newImageName);
+      callback(null, newImageName);
+    },
+  }),
+});
+//cors
+server.use(cors({}));
 
 //end Routes
-server.use([express.json(), express.urlencoded({ extended: false }), upload.single("image")]);
-server.use([pilotRoute, userRoute, kitchenRoute, menuRoute, itemRoute, orderRoute, loginRoute])
-
-
+server.use([
+  express.json(),
+  express.urlencoded({ extended: false }),
+  upload.single("image"),
+]);
+server.use([
+  pilotRoute,
+  userRoute,
+  kitchenRoute,
+  menuRoute,
+  itemRoute,
+  orderRoute,
+  loginRoute,
+]);
 
 // general middleware not found
 server.use((req, res) => {
-    res.status(404).json({ message: "Not Found" })
+  res.status(404).json({ message: "Not Found" });
 });
 
 //middleware error handler
 server.use((error, req, res, next) => {
-    let status = error.status || 500;
-    res.status(status).json({ message: "internal Error " + error });
-})
+  let status = error.status || 500;
+  res.status(status).json({ message: "internal Error " + error });
+});

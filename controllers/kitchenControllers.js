@@ -145,7 +145,6 @@ module.exports.deleteKitchenOrders = (req, res, next) => {
     else res.status(200).json({ data: "order deleted" });
   });
 };
-
 //get kitchen orders
 
 module.exports.getKitchenOrders = (req, res, next) => {

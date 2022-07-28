@@ -70,8 +70,7 @@ exports.kitchenValidationAdd = [
     .withMessage("kitchenAddress.street must be a string")
     ,
   body("menuId")
-    .notEmpty()
-    .withMessage("menu id is required")
+    .optional()
     .isNumeric()
     .withMessage("menu id must be Number"),
   body("kitchenAddress.buildingNumber")

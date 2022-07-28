@@ -12,7 +12,18 @@ const {
 
 router
   .route("/menu")
-  .get(MenuController.getAllMenu)
+  .get(
+    authMw,
+    (req, res, next) => {
+      if (req.role == "admin") {
+        next();
+      } else {
+        next(new Error("Unauthorized"));
+      }
+    },
+    menuValidationAdd,
+    MenuController.getAllMenu
+  )
   .post(
     authMw,
     (req, res, next) => {
@@ -30,8 +41,6 @@ router
 router
   .route("/menu/:id")
 
-  .get(mwError, MenuController.getMenuById)
-
   .all(authMw, (req, res, next) => {
     if (
       (req.role == "kitchen" && req.id == req.params.id) ||
@@ -44,6 +53,7 @@ router
       next(error);
     }
   })
+  .get(mwError, MenuController.getMenuById)
   .put(menuValidationUpdate, mwError, MenuController.updateMenuById)
   .delete(menuValidationdelete, mwError, MenuController.deleteMenuById);
 

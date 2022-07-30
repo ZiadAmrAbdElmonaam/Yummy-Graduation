@@ -53,8 +53,13 @@ module.exports.getkitchenById = (req, res, next) => {
 
 //create new Kitchen
 module.exports.createNewKitchen = (req, res, next) => {
+  let path='';
+  if(req.file){
+    path = `./avatars/images/${req.file.filename}`;
+  }else{
+      path='./avatars/images/1659181873940.jpg';   
+  }
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
-    let path = `./avatars/images/${req.file.filename}`;
     let kitchenObject = new Kitchen({
       kitchenName: req.body.kitchenName,
       kitchenCategeory: req.body.kitchenCategeory,
@@ -70,7 +75,7 @@ module.exports.createNewKitchen = (req, res, next) => {
     kitchenObject
       .save()
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         res.status(201).json({ data: data });
       })
       .catch((error) => {

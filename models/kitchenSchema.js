@@ -41,7 +41,7 @@ const kitchenSchema = new mongoose.Schema({
   kitchenImage: {
     type: String,
     required: true,
-    default: "https://www.w3schools.com/howto/img_avatar.png",
+    default: "./avatars/images/1659181873940.jpg",
   },
   kitchenOrders: [{ type: Number, ref: "orders", required: true, default: [] }],
 });

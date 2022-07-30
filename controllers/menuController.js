@@ -82,6 +82,8 @@ module.exports.updateMenuById = (req, res, next) => {
                 }
                 else {
                     throw new Error("key is not valid")
+                    // data[key] = bodyData[key];
+
                 }
 
             }

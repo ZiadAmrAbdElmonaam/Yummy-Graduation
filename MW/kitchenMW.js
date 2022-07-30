@@ -51,9 +51,9 @@ exports.kitchenValidationAdd = [
   body("kitchenImage")
     .optional()
     .isString()
-    .withMessage("kitchenImage must be a string")
-    .isLength({ min: 3, max: 50 })
-    .withMessage("kitchenImage must be between 3 and 50 characters long"),
+    .withMessage("kitchenImage must be a string"),
+    // .isLength({ min: 3, max: 50 })
+    // .withMessage("kitchenImage must be between 3 and 50 characters long"),
   body("kitchenAddress.zone")
     .notEmpty()
     .withMessage("kitchenAddress.zone is required")

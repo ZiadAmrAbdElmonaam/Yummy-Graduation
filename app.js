@@ -38,7 +38,7 @@ server.get("/", (req, res) => {
   res.send("hello from main page");
 });
 
-//image
+// image
 const multer = require("multer");
 const upload = multer({
   limits: {
@@ -52,7 +52,7 @@ const upload = multer({
   },
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, "./avatars/kitchen/");
+      callback(null, "./avatars/images/");
     },
     filename: function (req, file, callback) {
       console.log(req.body);

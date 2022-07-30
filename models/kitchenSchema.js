@@ -40,7 +40,7 @@ const kitchenSchema = new mongoose.Schema({
   kitchenRating: { type: Number, default: 0, max: 5, min: 0 },
   kitchenImage: {
     type: String,
-    required: true,
+    // required: true,
     default: "https://www.w3schools.com/howto/img_avatar.png",
   },
   kitchenOrders: [{ type: Number, ref: "orders", required: true, default: [] }],

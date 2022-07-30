@@ -53,8 +53,15 @@ module.exports.getkitchenById = (req, res, next) => {
 
 //create new Kitchen
 module.exports.createNewKitchen = (req, res, next) => {
+  let path;
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
-    let path = `./avatars/images/${req.file.filename}`;
+   if( `./avatars/images/${req.file.filename}`){
+    path = `./avatars/images/${req.file.filename}`
+   }
+   else{
+    path=req.body.kitchenImage
+   }
+   
     let kitchenObject = new Kitchen({
       kitchenName: req.body.kitchenName,
       kitchenCategeory: req.body.kitchenCategeory,

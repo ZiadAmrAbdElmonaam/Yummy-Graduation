@@ -52,12 +52,12 @@ const upload = multer({
   },
   storage: multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, "./avatars/kitchen/");
+      callback(null, "./avatars/images/");
     },
     filename: function (req, file, callback) {
       console.log(req.body);
       const newImageName = `${Date.now()}.jpg`;
-      console.log("ahmeddd");
+      console.log("ahmed atia");
       console.log(newImageName);
       callback(null, newImageName);
     },

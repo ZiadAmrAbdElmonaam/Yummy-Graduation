@@ -52,8 +52,8 @@ exports.kitchenValidationAdd = [
     .optional()
     .isString()
     .withMessage("kitchenImage must be a string"),
-    // .isLength({ min: 3, max: 50 })
-    // .withMessage("kitchenImage must be between 3 and 50 characters long"),
+  // .isLength({ min: 3, max: 50 })
+  // .withMessage("kitchenImage must be between 3 and 50 characters long"),
   body("kitchenAddress.zone")
     .notEmpty()
     .withMessage("kitchenAddress.zone is required")
@@ -67,12 +67,8 @@ exports.kitchenValidationAdd = [
     .notEmpty()
     .withMessage("kitchenAddress.street is required")
     .isString()
-    .withMessage("kitchenAddress.street must be a string")
-    ,
-  body("menuId")
-    .optional()
-    .isNumeric()
-    .withMessage("menu id must be Number"),
+    .withMessage("kitchenAddress.street must be a string"),
+  body("menuId").optional().isNumeric().withMessage("menu id must be Number"),
   body("kitchenAddress.buildingNumber")
     .notEmpty()
     .withMessage("kitchenAddress.buildingNumber is required")

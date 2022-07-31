@@ -57,24 +57,6 @@ module.exports.updateMenuById = (req, res, next) => {
       let bodyData = req.body;
       console.log(bodyData);
 
-<<<<<<< HEAD
-            for (let key in bodyData) {
-                if (key == "menuItems") {
-                    if (!data.menuItems.includes(bodyData.menuItems) && bodyData.menuItems != null && bodyData.menuItems.length == 1) {
-                        console.log("body" + req.body.menuItems);
-                        console.log("data" + data.menuItems);
-                        data.menuItems.push(...bodyData.menuItems)
-                    }
-                    else {
-                        throw new Error("only one menu item can be added and it should be unique")
-                    }
-                }
-                else {
-                    throw new Error("key is not valid")
-                    // data[key] = bodyData[key];
-
-                }
-=======
       for (let key in bodyData) {
         if (key == "menuItems") {
           if (
@@ -97,7 +79,6 @@ module.exports.updateMenuById = (req, res, next) => {
       }
       return data.save().then(res.status(200).json({ data: data }));
     })
->>>>>>> d1a712818bee9d2ab220a5ac41ef4aa6fbdac543
 
     .catch((error) => {
       next(error);

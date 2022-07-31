@@ -53,25 +53,25 @@ module.exports.getkitchenById = (req, res, next) => {
 
 //create new Kitchen
 module.exports.createNewKitchen = (req, res, next) => {
-<<<<<<< HEAD
-  let path;
-  bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
-   if( `./avatars/images/${req.file.filename}`){
-    path = `./avatars/images/${req.file.filename}`
-   }
-   else{
-    path=req.body.kitchenImage
-   }
-   
-=======
-  let path='';
-  if(req.file){
+  // <<<<<<< HEAD
+  //   let path;
+  //   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
+  //    if( `./avatars/images/${req.file.filename}`){
+  //     path = `./avatars/images/${req.file.filename}`
+  //    }
+  //    else{
+  //     path=req.body.kitchenImage
+  //    }
+
+  // =======
+  let path = "";
+  if (req.file) {
     path = `./avatars/images/${req.file.filename}`;
-  }else{
-      path='./avatars/images/1659181873940.jpg';   
+  } else {
+    path = "./avatars/images/1659181873940.jpg";
   }
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
->>>>>>> aa018b6758b2c36869aa2a661dcfb7dd299ca14b
+    // >>>>>>> aa018b6758b2c36869aa2a661dcfb7dd299ca14b
     let kitchenObject = new Kitchen({
       kitchenName: req.body.kitchenName,
       kitchenCategeory: req.body.kitchenCategeory,

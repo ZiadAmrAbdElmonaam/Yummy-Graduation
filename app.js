@@ -55,15 +55,7 @@ const upload = multer({
       callback(null, "./avatars/images/");
     },
     filename: function (req, file, callback) {
-      console.log('hhhhh',req.body);
       const newImageName = `${Date.now()}.jpg`;
-<<<<<<< HEAD
-      console.log("ahmeddd",req.body);
-      // console.log(newImageName);
-=======
-      console.log("ahmed atia");
-      console.log(newImageName);
->>>>>>> d1a712818bee9d2ab220a5ac41ef4aa6fbdac543
       callback(null, newImageName);
     },
   }),

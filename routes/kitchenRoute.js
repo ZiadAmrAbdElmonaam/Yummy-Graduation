@@ -18,7 +18,7 @@ router
       (req.role == "kitchen" && req.id == req.params.id) ||
       req.role == "admin"
     ) {
-      console.log("kitchen id", req.id);
+      // console.log("kitchen id", req.id);
       next();
     } else {
       let error = new Error("not authorized");

@@ -29,7 +29,7 @@ module.exports.createNewItem = (req, res, next) => {
   if (req.file) {
     path = `./avatars/images/${req.file.filename}`;
   } else {
-    path = "./avatars/images/1659181873940.jpg";
+    path ="https://www.w3schools.com/howto/img_avatar.png";
   }
   let itemObject = new Item({
     itemName: req.body.itemName,
@@ -57,6 +57,9 @@ module.exports.updateItemById = (req, res, next) => {
   )
     .then((data) => {
       // console.log(data.modifiedCount);
+      if (req.file) {
+        data.itemImage = `./avatars/images/${req.file.filename}`;
+      }
       if (data.modifiedCount == 0) next(new Error("Item not found"));
       else res.status(200).json({ data: "updated" });
     })

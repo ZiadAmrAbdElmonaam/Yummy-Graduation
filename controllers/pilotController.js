@@ -33,7 +33,7 @@ module.exports.addPilot = (req, res, next) => {
     if (req.file) {
       path = `./avatars/images/${req.file.filename}`;
     } else {
-      path = "./avatars/images/1659181873940.jpg";
+      path = "https://www.w3schools.com/howto/img_avatar.png";
     }
     let pilotObject = new Pilot({
       _id: req.body.nationalID,
@@ -61,10 +61,12 @@ module.exports.addPilot = (req, res, next) => {
 module.exports.updateById = (req, res, next) => {
   Pilot.findOne({ _id: req.params.nationalID })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       let bodyData = req.body;
-      console.log(bodyData);
-
+      // console.log(bodyData);
+      if (req.file) {
+        data.pilotLisenceImage = `./avatars/images/${req.file.filename}`;
+      }
       for (let key in bodyData) {
         if (key == "orders") {
           if (

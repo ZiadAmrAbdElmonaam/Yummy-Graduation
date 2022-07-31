@@ -68,7 +68,7 @@ module.exports.createNewKitchen = (req, res, next) => {
   if (req.file) {
     path = `./avatars/images/${req.file.filename}`;
   } else {
-    path = "./avatars/images/1659181873940.jpg";
+    path = "https://www.w3schools.com/howto/img_avatar.png";
   }
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
     // >>>>>>> aa018b6758b2c36869aa2a661dcfb7dd299ca14b
@@ -102,9 +102,10 @@ module.exports.updateKitchen = (req, res, next) => {
   Kitchen.findOne({ _id: req.params.id })
     .then((data) => {
       let bodyData = req.body;
+      if (req.file) {
+        data.kitchenImage = `./avatars/images/${req.file.filename}`;
+      }
       for (let key in bodyData) {
-        console.log("key " + key);
-
         if (key == "kitchenOrders") {
           if (
             !data.kitchenOrders.includes(bodyData.kitchenOrders) &&
@@ -115,7 +116,6 @@ module.exports.updateKitchen = (req, res, next) => {
           } else {
             throw new Error("only one unique order is allowed");
           }
-          console.log("first IF");
         } else if (
           key === "street" ||
           key === "zone" ||
@@ -125,9 +125,7 @@ module.exports.updateKitchen = (req, res, next) => {
           key === "apartment"
         ) {
           data.kitchenAddress[key] = bodyData[key];
-          console.log("else IF");
-        } else {
-          console.log(" ELSE");
+        }else {
           data[key] = bodyData[key];
         }
       }

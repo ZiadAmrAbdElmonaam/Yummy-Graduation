@@ -20,20 +20,20 @@ exports.userValaidationAdd = [
     body("userPassword")
         .notEmpty().withMessage("userPassword is required")
         .isString().withMessage("userPassword must be a string"),
-    body("userOrder")
-        .optional().isArray(Number).withMessage("userOrder must be an array of numbers"),
-    body("userAddress")
-        .notEmpty().withMessage("userAddress is required")
-        .isObject().withMessage("userAddress must be an object"),
-    body("userAddress.zone").notEmpty().withMessage("userAddress.zone is required")
-        .isString().withMessage("userAddress.zone must be a string"),
-    body("userAddress.street").notEmpty().withMessage("userAddress.street is required")
-        .isString().withMessage("userAddress.street must be a string"),
-    body("userAddress.building").notEmpty().withMessage("userAddress.building is required")
-        .isString().withMessage("userAddress.building must be a string"),
-    body("userAddress.floor").optional().isNumeric().withMessage("userAddress.floor must be a number"),
-    body("userAddress.apartment").optional().isString().withMessage("userAddress.apartment must be a string"),
-    body("userAddress.notes").optional().isString().withMessage("userAddress.notes must be a string"),
+    // body("userOrder")
+    //     .optional().isArray(Number).withMessage("userOrder must be an array of numbers"),
+    // body("userAddress")
+    //     .notEmpty().withMessage("userAddress is required")
+    //     .isObject().withMessage("userAddress must be an object"),
+    // body("userAddress.zone").notEmpty().withMessage("userAddress.zone is required")
+    //     .isString().withMessage("userAddress.zone must be a string"),
+    // body("userAddress.street").notEmpty().withMessage("userAddress.street is required")
+    //     .isString().withMessage("userAddress.street must be a string"),
+    // body("userAddress.building").notEmpty().withMessage("userAddress.building is required")
+    //     .isString().withMessage("userAddress.building must be a string"),
+    // body("userAddress.floor").optional().isNumeric().withMessage("userAddress.floor must be a number"),
+    // body("userAddress.apartment").optional().isString().withMessage("userAddress.apartment must be a string"),
+    // body("userAddress.notes").optional().isString().withMessage("userAddress.notes must be a string"),
     // body("userAddress.lat").notEmpty().withMessage("userAddress.lat is required")
     //     .isNumeric().withMessage("userAddress.lat must be a number"),
     // body("userAddress.lng").notEmpty().withMessage("userAddress.lng is required")
@@ -55,18 +55,7 @@ exports.userValaidationUpdate = [
     body("userPassword")
         .optional().isLength({ min: 8, max: 20 }).withMessage("userPassword must be between 8 and 20 characters long")
         .isString().withMessage("userPassword must be a string"),
-    body("userOrder")
-        .optional().isArray(Number).withMessage("userOrder must be an array of numbers"),
-    body("userAddress")
-        .optional().isObject().withMessage("userAddress must be an object"),
-    body("userAddress.zone").optional().isString().withMessage("userAddress.zone must be a string"),
-    body("userAddress.street").optional().isString().withMessage("userAddress.street must be a string"),
-    body("userAddress.building").optional().isString().withMessage("userAddress.building must be a string"),
-    body("userAddress.floor").optional().isNumeric().withMessage("userAddress.floor must be a number"),
-    body("userAddress.apartment").optional().isString().withMessage("userAddress.apartment must be a string"),
-    body("userAddress.notes").optional().isString().withMessage("userAddress.notes must be a string"),
-    body("userAddress.lat").optional().isNumeric().withMessage("userAddress.lat must be a number"),
-    body("userAddress.lng").optional().isNumeric().withMessage("userAddress.lng must be a number")
+
 ];
 exports.userValaidationDelete = [
     param("id")

@@ -7,15 +7,9 @@ const { userValaidationAdd, userValaidationUpdate, userValaidationDelete, userVa
 
 
 router.route("/user")
-    .get(authMw,
-        (req, res, next) => {
-            if (req.role === "admin") {
-                next();
-            }
-            else {
-                res.status(403).json({ msg: "just Admins can access this route " })
-            }
-        }
+    .get((req, res, next) => {
+        next();
+    }
 
         , userController.getAllUsers)
 

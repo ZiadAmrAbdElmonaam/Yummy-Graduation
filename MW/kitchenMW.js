@@ -55,29 +55,31 @@ exports.kitchenValidationAdd = [
   // .isLength({ min: 3, max: 50 })
   // .withMessage("kitchenImage must be between 3 and 50 characters long"),
   body("kitchenAddress.zone")
-    .notEmpty()
-    .withMessage("kitchenAddress.zone is required")
+    .optional()
+    // .notEmpty()
+    // .withMessage("kitchenAddress.zone is required")
     .isString()
-    .withMessage("kitchenAddress.zone must be a string")
-    .isLength({ min: 3, max: 50 })
-    .withMessage(
-      "kitchenAddress.zone must be between 3 and 50 characters long"
-    ),
+    .withMessage("kitchenAddress.zone must be a string"),
+  // .isLength({ min: 3, max: 50 })
+  // .withMessage(
+  //   "kitchenAddress.zone must be between 3 and 50 characters long"
+  // ),
   body("kitchenAddress.street")
-    .notEmpty()
-    .withMessage("kitchenAddress.street is required")
+    .optional()
+    // .notEmpty()
+    // .withMessage("kitchenAddress.street is required")
     .isString()
     .withMessage("kitchenAddress.street must be a string"),
   body("menuId").optional().isNumeric().withMessage("menu id must be Number"),
-  body("kitchenAddress.buildingNumber")
-    .notEmpty()
-    .withMessage("kitchenAddress.buildingNumber is required")
-    .isNumeric()
-    .withMessage("kitchenAddress.buildingNumber must be a number")
-    .isLength({ min: 1, max: 5 })
-    .withMessage(
-      "kitchenAddress.buildingNumber must be between 1 and 5 digits long"
-    ),
+  body("kitchenAddress.buildingNumber").optional(),
+  // .notEmpty()
+  // .withMessage("kitchenAddress.buildingNumber is required")
+  // .isNumeric()
+  // .withMessage("kitchenAddress.buildingNumber must be a number"),
+  // .isLength({ min: 1, max: 5 })
+  // .withMessage(
+  //   "kitchenAddress.buildingNumber must be between 1 and 5 digits long"
+  // ),
   body("kitchenAddress.floor")
     .optional()
     .isNumeric()

@@ -103,7 +103,7 @@ module.exports.updateKitchen = (req, res, next) => {
     .then((data) => {
       let bodyData = req.body;
       if (req.file) {
-        data.kitchenImage = `./avatars/images/${req.file.filename}`;
+        data.kitchenImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
       }
       for (let key in bodyData) {
         if (key == "kitchenOrders") {

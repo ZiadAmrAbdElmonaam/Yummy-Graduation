@@ -31,7 +31,7 @@ module.exports.addPilot = (req, res, next) => {
   bcrypt.hash(req.body.pilotPassword, 10).then((hashpass) => {
     let path = "";
     if (req.file) {
-      path = `./avatars/images/${req.file.filename}`;
+      path = `http://localhost:8080/avatars/images/${req.file.filename}`;
     } else {
       path = "https://www.w3schools.com/howto/img_avatar.png";
     }
@@ -65,7 +65,7 @@ module.exports.updateById = (req, res, next) => {
       let bodyData = req.body;
       // console.log(bodyData);
       if (req.file) {
-        data.pilotLisenceImage = `./avatars/images/${req.file.filename}`;
+        data.pilotLisenceImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
       }
       for (let key in bodyData) {
         if (key == "orders") {

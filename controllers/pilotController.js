@@ -66,25 +66,27 @@ module.exports.updateById = (req, res, next) => {
       // console.log(bodyData);
       if (req.file) {
         data.pilotLisenceImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
-      }
-      for (let key in bodyData) {
-        if (key == "orders") {
-          if (
-            !data.orders.includes(bodyData.orders) &&
-            bodyData.orders != null &&
-            bodyData.orders.length == 1
-          ) {
-            console.log("body" + req.body.orders);
-            console.log("data" + data.orders);
-            data.orders.push(...bodyData.orders);
+        return data.save().then(res.status(200).json({ data: "updated" }));
+      } else {
+        for (let key in bodyData) {
+          if (key == "orders") {
+            if (
+              !data.orders.includes(bodyData.orders) &&
+              bodyData.orders != null &&
+              bodyData.orders.length == 1
+            ) {
+              console.log("body" + req.body.orders);
+              console.log("data" + data.orders);
+              data.orders.push(...bodyData.orders);
+            } else {
+              throw new Error("orders should be unique");
+            }
           } else {
-            throw new Error("orders should be unique");
+            data[key] = bodyData[key];
           }
-        } else {
-          data[key] = bodyData[key];
         }
+        return data.save().then(res.status(200).json({ data: "updated" }));
       }
-      return data.save().then(res.status(200).json({ data: "updated" }));
     })
 
     .catch((error) => {

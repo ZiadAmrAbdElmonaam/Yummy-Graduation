@@ -103,33 +103,36 @@ module.exports.updateKitchen = (req, res, next) => {
     .then((data) => {
       let bodyData = req.body;
       if (req.file) {
+        // .then(data)
         data.kitchenImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
-      }
-      for (let key in bodyData) {
-        if (key == "kitchenOrders") {
-          if (
-            !data.kitchenOrders.includes(bodyData.kitchenOrders) &&
-            bodyData.kitchenOrders != null &&
-            bodyData.kitchenOrders.length == 1
+        return data.save().then(res.status(200).json({ data: data }));
+      }else {
+        for (let key in bodyData) {
+          if (key == "kitchenOrders") {
+            if (
+              !data.kitchenOrders.includes(bodyData.kitchenOrders) &&
+              bodyData.kitchenOrders != null &&
+              bodyData.kitchenOrders.length == 1
+            ) {
+              data.kitchenOrders.push(...bodyData.kitchenOrders);
+            } else {
+              throw new Error("only one unique order is allowed");
+            }
+          } else if (
+            key === "street" ||
+            key === "zone" ||
+            key === "notes" ||
+            key === "buildingNumber" ||
+            key === "floor" ||
+            key === "apartment"
           ) {
-            data.kitchenOrders.push(...bodyData.kitchenOrders);
+            data.kitchenAddress[key] = bodyData[key];
           } else {
-            throw new Error("only one unique order is allowed");
+            data[key] = bodyData[key];
           }
-        } else if (
-          key === "street" ||
-          key === "zone" ||
-          key === "notes" ||
-          key === "buildingNumber" ||
-          key === "floor" ||
-          key === "apartment"
-        ) {
-          data.kitchenAddress[key] = bodyData[key];
-        } else {
-          data[key] = bodyData[key];
         }
+        return data.save().then(res.status(200).json({ data: data }));
       }
-      return data.save().then(res.status(200).json({ data: data }));
     })
 
     .catch((error) => {
@@ -196,13 +199,13 @@ module.exports.getKitchenOrders = (req, res, next) => {
     });
 };
 // get kitchen by name
-module.exports.getkitchenByName=(req,res,next)=>{
-  Kitchen.find({kitchenName:req.params.kitchenName})
-  .then((data) => {
-    if (data.length == 0) next(new Error("Kitchen not found"));
-    else res.status(200).json(data);
-  })
-  .catch((error) => {
-    next(error);
-  });
-}
+module.exports.getkitchenByName = (req, res, next) => {
+  Kitchen.find({ kitchenName: req.params.kitchenName })
+    .then((data) => {
+      if (data.length == 0) next(new Error("Kitchen not found"));
+      else res.status(200).json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+};

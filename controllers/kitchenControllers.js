@@ -195,3 +195,14 @@ module.exports.getKitchenOrders = (req, res, next) => {
       next(error);
     });
 };
+// get kitchen by name
+module.exports.getkitchenByName=(req,res,next)=>{
+  Kitchen.find({kitchenName:req.params.kitchenName})
+  .then((data) => {
+    if (data.length == 0) next(new Error("Kitchen not found"));
+    else res.status(200).json(data);
+  })
+  .catch((error) => {
+    next(error);
+  });
+}

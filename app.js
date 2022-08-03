@@ -12,6 +12,7 @@ const loginRoute = require("./routes/loginRoute");
 const cors = require("cors");
 require("dotenv").config();
 
+const path = require("path");
 //connect database
 mongoose
   .connect(process.env.DB_URL)
@@ -78,6 +79,8 @@ server.use([
   orderRoute,
   loginRoute,
 ]);
+
+server.use("/avatars", express.static(path.join(__dirname, "avatars")));
 
 // general middleware not found
 server.use((req, res) => {

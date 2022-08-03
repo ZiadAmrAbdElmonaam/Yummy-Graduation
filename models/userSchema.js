@@ -1,9 +1,9 @@
 const mongoose = require("mongoose")
 const AutoIncrement = require("mongoose-sequence")(mongoose)
 const addressSchema = new mongoose.Schema({
-    zone: { type: String, required: true },
-    street: { type: String, required: true },
-    building: { type: String, required: true },
+    zone: { type: String, required: false },
+    street: { type: String, required: false },
+    building: { type: String, required: false },
     floor: { type: Number },
     apartment: { type: String },
     notes: { type: String },
@@ -36,8 +36,8 @@ const usersSchema = new mongoose.Schema({
     },
 
     userPhone: { type: Number, unique: true, required: true, length: 11 },
-    userAddress: { type: addressSchema, _id: false, required: true },
-    userOrder: [{ type: Number, ref: "orders", required: true, default: [] }],
+    userAddress: { type: addressSchema, _id: false, required: false },
+    userOrder: [{ type: Number, ref: "orders", required: false, default: [] }],
 
 
 }

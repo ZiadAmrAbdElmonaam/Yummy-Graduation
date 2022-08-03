@@ -27,9 +27,9 @@ module.exports.getItemById = (req, res, next) => {
 module.exports.createNewItem = (req, res, next) => {
   let path = "";
   if (req.file) {
-    path = `./avatars/images/${req.file.filename}`;
+    path = `http://localhost:8080/avatars/images/${req.file.filename}`;
   } else {
-    path ="https://www.w3schools.com/howto/img_avatar.png";
+    path = "https://www.w3schools.com/howto/img_avatar.png";
   }
   let itemObject = new Item({
     itemName: req.body.itemName,
@@ -58,7 +58,7 @@ module.exports.updateItemById = (req, res, next) => {
     .then((data) => {
       // console.log(data.modifiedCount);
       if (req.file) {
-        data.itemImage = `./avatars/images/${req.file.filename}`;
+        data.itemImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
       }
       if (data.modifiedCount == 0) next(new Error("Item not found"));
       else res.status(200).json({ data: "updated" });

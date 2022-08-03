@@ -66,7 +66,7 @@ module.exports.createNewKitchen = (req, res, next) => {
   // =======
   let path = "";
   if (req.file) {
-    path = `./avatars/images/${req.file.filename}`;
+    path = `http://localhost:8080/avatars/images/${req.file.filename}`;
   } else {
     path = "https://www.w3schools.com/howto/img_avatar.png";
   }
@@ -103,7 +103,7 @@ module.exports.updateKitchen = (req, res, next) => {
     .then((data) => {
       let bodyData = req.body;
       if (req.file) {
-        data.kitchenImage = `./avatars/images/${req.file.filename}`;
+        data.kitchenImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
       }
       for (let key in bodyData) {
         if (key == "kitchenOrders") {
@@ -125,7 +125,7 @@ module.exports.updateKitchen = (req, res, next) => {
           key === "apartment"
         ) {
           data.kitchenAddress[key] = bodyData[key];
-        }else {
+        } else {
           data[key] = bodyData[key];
         }
       }

@@ -16,6 +16,7 @@ module.exports.getAllItem = (req, res, next) => {
 module.exports.getItemById = (req, res, next) => {
   Item.findOne({ _id: req.params.id })
     .then((data) => {
+      // console.log(data)
       if (data == null) next(new Error("item not found"));
       else res.status(200).json(data);
     })
@@ -49,23 +50,32 @@ module.exports.createNewItem = (req, res, next) => {
 };
 //update item by id
 module.exports.updateItemById = (req, res, next) => {
-  Item.updateOne(
-    { _id: req.params.id, kitchenId: req.body.kitchenId },
-    {
-      $set: req.body,
-    }
-  )
-    .then((data) => {
-      // console.log(data.modifiedCount);
-      if (req.file) {
-        data.itemImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
-      }
-      if (data.modifiedCount == 0) next(new Error("Item not found"));
-      else res.status(200).json({ data: "updated" });
+  if (req.file) {
+    Item.findOne({ _id: req.params.id,kitchenId: req.body.kitchenId })
+    .then((data)=>{
+      data.itemImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
+    // console.log("image", data.itemImage);
+    if (data == null) next(new Error("item not found"));
+    return data.save().then(res.status(200).json({ data: data }));
     })
-    .catch((error) => {
-      next(error);
-    });
+  } else
+    Item.updateOne(
+      { _id: req.params.id, kitchenId: req.body.kitchenId },
+      {
+        $set: req.body,
+      }
+    )
+      .then((data) => {
+        console.log("data", data);
+        console.log("body", req.body);
+        console.log("file", req.file);
+        console.log("params", req.params.id);
+        if (data.modifiedCount == 0) next(new Error("Item not found"));
+        else res.status(200).json({ data });
+      })
+      .catch((error) => {
+        next(error);
+      });
 };
 //delete item by id
 module.exports.deleteItemById = (req, res, next) => {

@@ -54,7 +54,7 @@ router.route("/pilot/:nationalID")
 
 router.route("/pilotOrders/:nationalID")
     .all(authMw, (req, res, next) => {
-        if (((req.role == "pilot") || (req.role == "admin")) && req.id == req.params.nationalID) {
+        if ((((req.role == "pilot")  && (req.id == req.params.nationalID) )|| (req.role == "admin"))) {
             next();
         }
         else {

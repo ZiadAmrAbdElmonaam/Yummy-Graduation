@@ -126,6 +126,8 @@ module.exports.getPilotOrders = (req, res, next) => {
           select: {
             _id: 0,
             userFullName: 1,
+            userAddress:1,
+            userPhone:1,
           },
         },
         {
@@ -133,6 +135,8 @@ module.exports.getPilotOrders = (req, res, next) => {
           select: {
             _id: 0,
             kitchenName: 1,
+            kitchenAddress:1,
+            kitchenPhone:1
           },
         },
       ],

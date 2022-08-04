@@ -81,7 +81,11 @@ module.exports.updateById = (req, res, next) => {
             } else {
               throw new Error("orders should be unique");
             }
-          } else {
+          }
+          else if(key==="pilotPassword"){
+            throw new Error("Can't Change Password Now");
+          } 
+          else {
             data[key] = bodyData[key];
           }
         }

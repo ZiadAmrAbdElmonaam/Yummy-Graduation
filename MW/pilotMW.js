@@ -59,7 +59,9 @@ exports.pilotsValidationUpdate = [
 
     body("pilotLisenceImage")
         .optional(),
-    body("orders").notEmpty().withMessage("order is required")
+    body("orders")
+    // .notEmpty().withMessage("order is required")
+        .optional()
         .isArray(Number).withMessage("order must be an array of numbers")
 
 ]

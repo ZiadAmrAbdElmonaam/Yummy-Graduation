@@ -143,6 +143,14 @@ module.exports.getPilotOrders = (req, res, next) => {
             kitchenPhone:1
           },
         },
+        {
+          path:"orderItems",
+          select:{
+            _id:0,
+            itemName:1,
+            itemPrice:1
+          }
+        }
       ],
     })
 

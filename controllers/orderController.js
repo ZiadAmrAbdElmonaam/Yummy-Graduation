@@ -26,7 +26,6 @@ module.exports.createNewOrder = (req, res, next) => {
         totalPrice: req.body.totalPrice,
         userid: req.body.userid,
         kitchen: req.body.kitchen,
-        deliverypilot: req.body.deliverypilot,
         orderItems: req.body.orderItems
     });
     orderObject.save()
@@ -50,7 +49,8 @@ module.exports.updateOrderById = (req, res, next) => {
                 userid: req.body.userid,
                 kitchen: req.body.kitchen,
                 deliverypilot: req.body.deliverypilot,
-                orderStatus: req.body.orderStatus,
+                kitchenOrderStatus: req.body.kitchenOrderStatus,
+                pilotOrderStatus:req.body.pilotOrderStatus
             }
 
         })

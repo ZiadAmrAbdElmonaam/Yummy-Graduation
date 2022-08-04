@@ -10,9 +10,6 @@ exports.orderValidationAdd = [
     body("kitchen")
         .isNumeric()
         .withMessage("kitchen must be a number"),
-    body("deliverypilot")
-        .isNumeric()
-        .withMessage("deliverypilot must be a number"),
     body("orderItems")
         .notEmpty()
         .withMessage("orderItems can't be empty")
@@ -41,11 +38,14 @@ exports.orderValidationUpdate = [
         .optional()
         .isArray(Number)
         .withMessage("orderItems must be an array"),
-    body("orderStatus")
+    body("pilotOrderStatus")
+    .optional()
+    .isIn(["waiting", "in the way", "dilevered"])
+    .withMessage("pilot order status must be one of the following: waiting, in the way, dilevered"),
+    body("kitchenOrderStatus")
         .optional()
         .isIn(["pending", "inProgress", "completed", "cancelled", "rejected"])
-        .withMessage("orderStatus must be one of the following: pending, inProgress, completed, cancelled"),
-
+        .withMessage("kitchen order status must be one of the following: pending, inProgress, completed, cancelled"),
 ];
 
 

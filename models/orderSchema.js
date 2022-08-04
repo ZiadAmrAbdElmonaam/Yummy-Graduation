@@ -5,12 +5,13 @@ const orderschema = new mongoose.Schema({
 
     _id: { type: Number },
     totalPrice: { type: Number, required: true, ref: "items", default: 0 },
-    orderStatus: { type: String, required: true, default: "pending", enum: ["pending", "accepted", "inProgress", "rejected", "completed"] },
+    kitchenOrderStatus: { type: String, required: true, default: "pending", enum: ["pending", "accepted", "inProgress", "rejected", "completed"] },
+    pilotOrderStatus: { type: String, required: true, default: "waiting", enum: ["waiting", "in the way", "dilevered"] },
     orderDate: { type: Date, default: Date.now, required: true },
     orderfees: { type: Number, default: 20 },
     userid: { type: Number, ref: "users", required: true },
     kitchen: { type: Number, ref: "kitchens", required: true },
-    deliverypilot: { type: Number, ref: "pilots", required: true },
+    deliverypilot: { type: Number, ref: "pilots" },
     orderItems: [{ type: Number, ref: "items", required: true }],
 })
 

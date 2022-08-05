@@ -6,16 +6,19 @@ const authMW = require("../MW/authMW");
 const { orderValidationAdd, orderValidationUpdate, orderValidationDelete, orderItemValidationDelete } = require("../MW/orderMW");
 
 router.route("/orders")
-    .get(authMW,
-        (req, res, next) => {
-            if (req.role === "admin") {
-                next();
-            }
-            else {
-                res.status(403).json({ msg: "just Admins can access this route " })
-            }
-        }
-        , orderController.getAllOrder)
+    .get(
+        // authMW
+        // ,
+        // (req, res, next) => {
+        //     if (req.role === "admin") {
+        //         next();
+        //     }
+        //     else {
+        //         res.status(403).json({ msg: "just Admins can access this route " })
+        //     }
+        // }
+        // ,
+         orderController.getAllOrder)
 
     .post(authMW,
         (req, res, next) => {

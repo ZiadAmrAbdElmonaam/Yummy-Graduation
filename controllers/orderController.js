@@ -4,6 +4,23 @@ const Order = mongoose.model("orders");
 
 module.exports.getAllOrder = (req, res, next) => {
     Order.find({})
+    .populate({
+        path: "userid",
+        select: {
+            _id: 0,
+            userFullName: 1,
+            userAddress:1,
+            userPhone:1,
+          },
+    })  
+        .populate({ 
+        path: "kitchen",
+        select: {
+          _id: 0,
+          kitchenName: 1,
+          kitchenAddress:1,
+          kitchenPhone:1}
+        })
         .then(data => {
             res.status(200).json(data)
         })

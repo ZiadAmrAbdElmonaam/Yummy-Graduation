@@ -25,16 +25,16 @@ router
   )
 
   .post(
-    authMW,
-    (req, res, next) => {
-      if (req.role === "user" || req.role === "admin") {
-        next();
-      } else {
-        res.status(403).json({
-          message: "You are not authorized to access this resource.",
-        });
-      }
-    },
+    // authMW,
+    // (req, res, next) => {
+    //   if (req.role === "user" || req.role === "admin") {
+    //     next();
+    //   } else {
+    //     res.status(403).json({
+    //       message: "You are not authorized to access this resource.",
+    //     });
+    //   }
+    // },
     orderValidationAdd,
     mwError,
     orderController.createNewOrder
@@ -42,21 +42,21 @@ router
 router
   .route("/order/:id")
 
-  .all(authMW, (req, res, next) => {
-    if (
-      ((req.role == "kitchen" || req.role == "pilot" || req.role == "user") &&
-        req.orders.includes(Number(req.params.id))) ||
-      req.role == "admin"
-    ) {
-      console.log("req.orders: ", req.orders);
-      console.log("order request", req.orders.includes(Number(req.params.id)));
-      next();
-    } else {
-      res.status(403).json({
-        message: "You are not authorized to access this resource.",
-      });
-    }
-  })
+  // .all(authMW, (req, res, next) => {
+  //   if (
+  //     ((req.role == "kitchen" || req.role == "pilot" || req.role == "user") &&
+  //       req.orders.includes(Number(req.params.id))) ||
+  //     req.role == "admin"
+  //   ) {
+  //     console.log("req.orders: ", req.orders);
+  //     console.log("order request", req.orders.includes(Number(req.params.id)));
+  //     next();
+  //   } else {
+  //     res.status(403).json({
+  //       message: "You are not authorized to access this resource.",
+  //     });
+  //   }
+  // })
   .get(mwError, orderController.getOrderById)
   .put(orderValidationUpdate, mwError, orderController.updateOrderById)
   .delete(orderValidationDelete, mwError, orderController.deleteOrderById);
@@ -113,5 +113,6 @@ router
     mwError,
     orderController.deleteOrderItemById
   );
-
+router.route("/onlineOrders")
+.get(orderController.getOnlineOrders)
 module.exports = router;

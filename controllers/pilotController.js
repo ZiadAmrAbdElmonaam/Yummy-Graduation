@@ -59,21 +59,22 @@ module.exports.addPilot = (req, res, next) => {
 };
 
 module.exports.updateById = (req, res, next) => {
-  Pilot.findOne({ _id: req.params.nationalID })
+  Pilot.findOne({ nationalID: req.params.nationalID })
     .then((data) => {
-      // console.log(data);
+      console.log(data);
       let bodyData = req.body;
-      // console.log(bodyData);
+      console.log(bodyData);
       if (req.file) {
         data.pilotLisenceImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
         return data.save().then(res.status(200).json({ data: "updated" }));
-      } else {
+      } 
+      else {
         for (let key in bodyData) {
           if (key == "orders") {
             if (
               !data.orders.includes(bodyData.orders) &&
               bodyData.orders != null &&
-              bodyData.orders.length == 1
+              bodyData.orders.length === 1
             ) {
               console.log("body" + req.body.orders);
               console.log("data" + data.orders);
@@ -89,7 +90,7 @@ module.exports.updateById = (req, res, next) => {
             data[key] = bodyData[key];
           }
         }
-        return data.save().then(res.status(200).json({ data: "updated" }));
+        return data.save().then(res.status(200).json({ data: "updated",data }));
       }
     })
 

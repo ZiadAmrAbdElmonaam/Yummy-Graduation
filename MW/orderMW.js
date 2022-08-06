@@ -40,7 +40,7 @@ exports.orderValidationUpdate = [
         .withMessage("orderItems must be an array"),
     body("pilotOrderStatus")
     .optional()
-    .isIn(["waiting", "in the way", "dilevered"])
+    .isIn(["waiting", "on the way", "dilevered"])
     .withMessage("pilot order status must be one of the following: waiting, in the way, dilevered"),
     body("kitchenOrderStatus")
         .optional()

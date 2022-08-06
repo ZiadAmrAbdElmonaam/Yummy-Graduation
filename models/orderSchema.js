@@ -6,7 +6,7 @@ const orderschema = new mongoose.Schema({
     _id: { type: Number },
     totalPrice: { type: Number, required: true, ref: "items", default: 0 },
     kitchenOrderStatus: { type: String, required: true, default: "pending", enum: ["pending", "accepted", "inProgress", "rejected", "completed"] },
-    pilotOrderStatus: { type: String, required: true, default: "waiting", enum: ["waiting", "in the way", "dilevered"] },
+    pilotOrderStatus: { type: String, required: true, default: "waiting", enum: ["waiting", "on the way", "dilevered"] },
     orderDate: { type: Date, default: Date.now, required: true },
     orderfees: { type: Number, default: 20 },
     userid: { type: Number, ref: "users", required: true },

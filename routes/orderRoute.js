@@ -115,4 +115,6 @@ router
   );
 router.route("/onlineOrders")
 .get(orderController.getOnlineOrders)
+router.route("/pilotHistoryOrders/:nationalID")
+.get(orderController.getDeliveredOrders)
 module.exports = router;

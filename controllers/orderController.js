@@ -132,6 +132,75 @@ module.exports.getDeliveredOrders = (req, res, next) => {
     nationalID: req.params.deliverypilot,
     pilotOrderStatus: "dilevered",
   })
+  .populate({
+    path: "userid",
+    select: {
+      _id: 0,
+      userFullName: 1,
+      userAddress: 1,
+      userPhone: 1,
+    },
+  })
+  .populate({
+    path: "kitchen",
+    select: {
+      _id: 0,
+      kitchenName: 1,
+      kitchenAddress: 1,
+      kitchenPhone: 1,
+    },
+    
+  })
+  .populate({
+    path: "orderItems",
+    select: {
+      _id: 0,
+      itemName: 1,
+      itemPrice: 1,
+    },
+    
+  })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+};
+// get on the way orders
+module.exports.getPilotOnlineOrders = (req, res, next) => {
+  Order.find({
+    nationalID: req.params.deliverypilot,
+    pilotOrderStatus: "on the way",
+  })
+  .populate({
+    path: "userid",
+    select: {
+      _id: 0,
+      userFullName: 1,
+      userAddress: 1,
+      userPhone: 1,
+    },
+  })
+  .populate({
+    path: "kitchen",
+    select: {
+      _id: 0,
+      kitchenName: 1,
+      kitchenAddress: 1,
+      kitchenPhone: 1,
+    },
+    
+  })
+  .populate({
+    path: "orderItems",
+    select: {
+      _id: 0,
+      itemName: 1,
+      itemPrice: 1,
+    },
+    
+  })
     .then((data) => {
       res.status(200).json(data);
     })

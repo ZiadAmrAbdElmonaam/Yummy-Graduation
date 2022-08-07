@@ -22,6 +22,7 @@ const orderschema = new mongoose.Schema({
   kitchen: { type: Number, ref: "kitchens", required: true },
   deliverypilot: { type: Number, ref: "pilots" },
   orderItems: [{ type: Number, ref: "items", required: true }],
+  orderArrival:{type :Date, default:Date.now},
 });
 
 //2- mapping

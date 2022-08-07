@@ -6,31 +6,30 @@ exports.kitchenValidationAdd = [
     .withMessage("kitchenName is required")
     .isString()
     .withMessage("kitchenName must be a string")
-    .isLength({ min: 3, max: 50 })
-    .withMessage("kitchenName must be between 3 and 50 characters long"),
+    .isLength({ max: 50 })
+    .withMessage("kitchenName must 50 characters long"),
   body("kitchenCategeory")
     // .notEmpty()
     // .withMessage("kitchenCategeory is required")
     // .optional()
     .isString()
-    .withMessage("kitchenCategeory must be a string")
-    // .isLength({ min: 3, max: 50 })
-    // .withMessage("kitchenCategeory must be between 3 and 50 characters long")
-    ,
+    .withMessage("kitchenCategeory must be a string"),
+  // .isLength({ min: 3, max: 50 })
+  // .withMessage("kitchenCategeory must be between 3 and 50 characters long")
   body("kitchenPhone")
     .notEmpty()
     .withMessage("kitchenPhone is required")
     .isNumeric()
     .withMessage("kitchenPhone must be a number")
-    .isLength({ min: 5, max: 11 })
-    .withMessage("kitchenPhone must be 5 digits long"),
+    .isLength({ min: 11, max: 11 })
+    .withMessage("kitchenPhone must be 11 digits long"),
   body("kitchenEmail")
     .notEmpty()
     .withMessage("kitchenEmail is required")
     .isEmail()
     .withMessage("kitchenEmail must be a valid email")
-    .isLength({ min: 3, max: 50 })
-    .withMessage("kitchenEmail must be between 3 and 50 characters long"),
+    .isLength({ max: 50 })
+    .withMessage("kitchenEmail must 50 characters long"),
   body("kitchenPassword")
     .notEmpty()
     .withMessage("kitchenPassword is required")
@@ -42,8 +41,8 @@ exports.kitchenValidationAdd = [
     .optional()
     .isString()
     .withMessage("kitchenStatus must be a string")
-    .isLength({ min: 3, max: 50 })
-    .withMessage("kitchenStatus must be between 3 and 50 characters long"),
+    .isIn(["open", "closed"])
+    .withMessage("choose between open or closed"),
   body("kitchenRating")
     .optional()
     .isNumeric()
@@ -57,9 +56,9 @@ exports.kitchenValidationAdd = [
   // .isLength({ min: 3, max: 50 })
   // .withMessage("kitchenImage must be between 3 and 50 characters long"),
   body("kitchenAddress.zone")
-    .optional()
-    // .notEmpty()
-    // .withMessage("kitchenAddress.zone is required")
+    // .optional()
+    .notEmpty()
+    .withMessage("kitchenAddress.zone is required")
     .isString()
     .withMessage("kitchenAddress.zone must be a string"),
   // .isLength({ min: 3, max: 50 })
@@ -67,21 +66,21 @@ exports.kitchenValidationAdd = [
   //   "kitchenAddress.zone must be between 3 and 50 characters long"
   // ),
   body("kitchenAddress.street")
-    .optional()
-    // .notEmpty()
-    // .withMessage("kitchenAddress.street is required")
+    // .optional()
+    .notEmpty()
+    .withMessage("kitchenAddress.street is required")
     .isString()
     .withMessage("kitchenAddress.street must be a string"),
   body("menuId").optional().isNumeric().withMessage("menu id must be Number"),
-  body("kitchenAddress.buildingNumber").optional(),
-  // .notEmpty()
-  // .withMessage("kitchenAddress.buildingNumber is required")
-  // .isNumeric()
-  // .withMessage("kitchenAddress.buildingNumber must be a number"),
-  // .isLength({ min: 1, max: 5 })
-  // .withMessage(
-  //   "kitchenAddress.buildingNumber must be between 1 and 5 digits long"
-  // ),
+  body("kitchenAddress.buildingNumber")
+    .notEmpty()
+    .withMessage("kitchenAddress.buildingNumber is required")
+    .isNumeric()
+    .withMessage("kitchenAddress.buildingNumber must be a number")
+    .isLength({ min: 1, max: 5 })
+    .withMessage(
+      "kitchenAddress.buildingNumber must be between 1 and 5 digits long"
+    ),
   body("kitchenAddress.floor")
     .optional()
     .isNumeric()

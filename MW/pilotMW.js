@@ -38,9 +38,9 @@ exports.pilotsValidationAdd = [
     .isString()
     .withMessage("pilotPassword must be a string"),
 
-  body("pilotLisenceImage")
-    .notEmpty()
-    .withMessage("licence image cant be empety"),
+  // body("pilotLisenceImage")
+  //   .notEmpty()
+  //   .withMessage("licence image cant be empety"),
   body("orders")
     .optional()
     .isArray(Number)

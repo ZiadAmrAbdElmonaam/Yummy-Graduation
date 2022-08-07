@@ -53,6 +53,7 @@ module.exports.updateOrderById = (req, res, next) => {
         deliverypilot: req.body.deliverypilot,
         kitchenOrderStatus: req.body.kitchenOrderStatus,
         pilotOrderStatus: req.body.pilotOrderStatus,
+        orderArrival:req.body.orderArrival,
       },
     }
   )

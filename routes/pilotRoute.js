@@ -35,35 +35,35 @@ router.route("/pilot/signUp")
 
 // get pilot by nationalID
 router.route("/pilot/:nationalID")
-    // .all(authMw, (req, res, next) => {
-    //     if (((req.role == "pilot") && req.id == req.params.nationalID)
-    //         || (req.role == "admin")) {
-    //         next();
-    //     }
-    //     else {
-    //         let error = new Error("not authorized");
-    //         error.status = 403;
-    //         next(error);
-    //     }
-    // }
-    // )
+    .all(authMw, (req, res, next) => {
+        if (((req.role == "pilot") && req.id == req.params.nationalID)
+            || (req.role == "admin")) {
+            next();
+        }
+        else {
+            let error = new Error("not authorized");
+            error.status = 403;
+            next(error);
+        }
+    }
+    )
     .get(pilotController.getpilotById)
 
     .put(pilotsValidationUpdate, mwError, pilotController.updateById)
     .delete(pilotsValidationDelete, mwError, pilotController.deleteById)
 
 router.route("/pilotOrders/:nationalID")
-    // .all(authMw, (req, res, next) => {
-    //     if ((((req.role == "pilot")  && (req.id == req.params.nationalID) )|| (req.role == "admin"))) {
-    //         next();
-    //     }
-    //     else {
-    //         let error = new Error("not authorized");
-    //         error.status = 403;
-    //         next(error);
-    //     }
-    // }
-    // )
+    .all(authMw, (req, res, next) => {
+        if ((((req.role == "pilot")  && (req.id == req.params.nationalID) )|| (req.role == "admin"))) {
+            next();
+        }
+        else {
+            let error = new Error("not authorized");
+            error.status = 403;
+            next(error);
+        }
+    }
+    )
     .get(pilotController.getPilotOrders)
     .delete(pilotValidationDeleteOrder, mwError, pilotController.deletePilotOrder)
 

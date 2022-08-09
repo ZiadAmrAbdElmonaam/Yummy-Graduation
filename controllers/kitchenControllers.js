@@ -127,7 +127,10 @@ module.exports.updateKitchen = (req, res, next) => {
             key === "apartment"
           ) {
             data.kitchenAddress[key] = bodyData[key];
-          } else {
+          } else if(key==="menuId"){
+            continue 
+          }
+          else {
             data[key] = bodyData[key];
           }
         }

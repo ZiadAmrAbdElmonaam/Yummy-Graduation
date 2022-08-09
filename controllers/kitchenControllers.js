@@ -87,7 +87,7 @@ module.exports.createNewKitchen = (req, res, next) => {
     kitchenObject
       .save()
       .then((data) => {
-        // console.log(data);
+        console.log(req.body);
         res.status(201).json({ data: data });
       })
       .catch((error) => {

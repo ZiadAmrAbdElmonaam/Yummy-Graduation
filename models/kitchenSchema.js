@@ -5,15 +5,15 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 const kitchenAddressSchema = new mongoose.Schema({
   zone: {
     type: String,
-    //  required: true
+     required: true
   },
   street: {
     type: String,
-    // required: true
+    required: true
   },
   buildingNumber: {
     type: Number,
-    // required: true
+    required: true
   },
   floor: { type: Number },
   apartment: { type: String },

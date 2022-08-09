@@ -13,6 +13,7 @@ const {
 router
   .route("/kitchen/:id")
   .get(KitchenController.getkitchenById)
+<<<<<<< HEAD
   .all(
     authMw, (req, res, next) => {
     if (
@@ -28,6 +29,21 @@ router
     }
   }
   )
+=======
+  // .all(authMw, (req, res, next) => {
+  //   if (
+  //     (req.role == "kitchen" && req.id == req.params.id) ||
+  //     req.role == "admin"
+  //   ) {
+  //     // console.log("kitchen id", req.id);
+  //     next();
+  //   } else {
+  //     let error = new Error("not authorized");
+  //     error.status = 403;
+  //     next(error);
+  //   }
+  // })
+>>>>>>> 36f77a34bc4c3841553a6dbcab6f1170fc2d1948
   .put(kitchenValidationUpdate, mwError, KitchenController.updateKitchen)
   .delete(kitchenValidationDelete, mwError, KitchenController.deleteKitchen);
 

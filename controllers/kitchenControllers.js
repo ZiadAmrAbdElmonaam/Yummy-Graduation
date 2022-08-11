@@ -71,7 +71,6 @@ module.exports.createNewKitchen = (req, res, next) => {
     path = "https://www.w3schools.com/howto/img_avatar.png";
   }
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
-    // >>>>>>> aa018b6758b2c36869aa2a661dcfb7dd299ca14b
     let kitchenObject = new Kitchen({
       kitchenName: req.body.kitchenName,
       kitchenCategeory: req.body.kitchenCategeory,
@@ -127,9 +126,10 @@ module.exports.updateKitchen = (req, res, next) => {
             key === "apartment"
           ) {
             data.kitchenAddress[key] = bodyData[key];
-          } else if(key==="menuId"){
-            continue 
-          }
+          } 
+          // else if(key==="menuId"){
+          //   continue 
+          // }
           else {
             data[key] = bodyData[key];
           }

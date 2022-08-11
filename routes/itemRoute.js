@@ -24,17 +24,17 @@ router
     ItemController.getAllItem
   )
   .post(
-    authMW,
-    (req, res, next) => {
-      if (
-        (req.role == "kitchen" && req.id == req.body.kitchenId) ||
-        req.role == "admin"
-      ) {
-        next();
-      } else {
-        next(new Error("Unauthorized"));
-      }
-    },
+    // authMW,
+    // (req, res, next) => {
+    //   if (
+    //     (req.role == "kitchen" && req.id == req.body.kitchenId) ||
+    //     req.role == "admin"
+    //   ) {
+    //     next();
+    //   } else {
+    //     next(new Error("Unauthorized"));
+    //   }
+    // },
     itemValidationAdd,
     mwError,
     ItemController.createNewItem

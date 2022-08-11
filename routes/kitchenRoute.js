@@ -13,7 +13,8 @@ const {
 router
   .route("/kitchen/:id")
   .get(KitchenController.getkitchenById)
-  // .all(authMw, (req, res, next) => {
+  // .all(
+  //   authMw, (req, res, next) => {
   //   if (
   //     (req.role == "kitchen" && req.id == req.params.id) ||
   //     req.role == "admin"
@@ -25,7 +26,8 @@ router
   //     error.status = 403;
   //     next(error);
   //   }
-  // })
+  // }
+  // )
   .put(kitchenValidationUpdate, mwError, KitchenController.updateKitchen)
   .delete(kitchenValidationDelete, mwError, KitchenController.deleteKitchen);
 
@@ -38,7 +40,8 @@ router
 
 router
   .route("/kitchenOrders/:id")
-  .all(authMw, (req, res, next) => {
+  .all(
+    authMw, (req, res, next) => {
     if (
       (req.role == "kitchen" && req.id == req.params.id) ||
       req.role == "admin"

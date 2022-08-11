@@ -61,19 +61,19 @@ router
   .route("/menu/item/:id")
 
   .delete(
-    authMw,
-    (req, res, next) => {
-      if (
-        (req.role == "kitchen" && req.id == req.params.id) ||
-        req.role == "admin"
-      ) {
-        next();
-      } else {
-        let error = new Error("not authorized");
-        error.status = 403;
-        next(error);
-      }
-    },
+    // authMw,
+    // (req, res, next) => {
+    //   if (
+    //     (req.role == "kitchen" && req.id == req.params.id) ||
+    //     req.role == "admin"
+    //   ) {
+    //     next();
+    //   } else {
+    //     let error = new Error("not authorized");
+    //     error.status = 403;
+    //     next(error);
+    //   }
+    // },
     menuValidationDeleteMenuItem,
     mwError,
     MenuController.deleteMenuItemById

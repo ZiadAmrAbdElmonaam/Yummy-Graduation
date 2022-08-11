@@ -31,11 +31,11 @@ exports.userValaidationAdd = [
     .optional()
     .isArray(Number)
     .withMessage("userOrder must be an array of numbers"),
-//   body("userAddress")
-//     .notEmpty()
-//     .withMessage("userAddress is required")
-//     .isObject()
-//     .withMessage("userAddress must be an object"),
+  //   body("userAddress")
+  //     .notEmpty()
+  //     .withMessage("userAddress is required")
+  //     .isObject()
+  //     .withMessage("userAddress must be an object"),
   body("userAddress.zone")
     .notEmpty()
     .withMessage("userAddress.zone is required")
@@ -112,6 +112,6 @@ exports.userValidationDeleteOrder = [
   body("userOrder")
     .notEmpty()
     .withMessage("userOrder is required")
-    .isArray(Number)
-    .withMessage("userOrder must be an array of numbers"),
+    .isNumeric()
+    .withMessage("userOrder must number"),
 ];

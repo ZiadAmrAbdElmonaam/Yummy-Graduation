@@ -71,7 +71,6 @@ module.exports.createNewKitchen = (req, res, next) => {
     path = "https://www.w3schools.com/howto/img_avatar.png";
   }
   bcrypt.hash(req.body.kitchenPassword, 10).then((hashpass) => {
-    // >>>>>>> aa018b6758b2c36869aa2a661dcfb7dd299ca14b
     let kitchenObject = new Kitchen({
       kitchenName: req.body.kitchenName,
       kitchenCategeory: req.body.kitchenCategeory,
@@ -87,7 +86,7 @@ module.exports.createNewKitchen = (req, res, next) => {
     kitchenObject
       .save()
       .then((data) => {
-        // console.log(data);
+        console.log(req.body);
         res.status(201).json({ data: data });
       })
       .catch((error) => {
@@ -106,7 +105,7 @@ module.exports.updateKitchen = (req, res, next) => {
         // .then(data)
         data.kitchenImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
         return data.save().then(res.status(200).json({ data: data }));
-      }else {
+      } else {
         for (let key in bodyData) {
           if (key == "kitchenOrders") {
             if (
@@ -127,7 +126,11 @@ module.exports.updateKitchen = (req, res, next) => {
             key === "apartment"
           ) {
             data.kitchenAddress[key] = bodyData[key];
-          } else {
+          }
+          // } else if (key === "menuId") {
+          //   continue;
+          // }
+          else {
             data[key] = bodyData[key];
           }
         }
@@ -177,6 +180,14 @@ module.exports.getKitchenOrders = (req, res, next) => {
             _id: 0,
             userFullName: 1,
             userPhone: 1,
+          },
+        },
+        {
+          path: "orderItems",
+          select: {
+            _id: 0,
+            itemName: 1,
+            itemPrice: 1,
           },
         },
         {

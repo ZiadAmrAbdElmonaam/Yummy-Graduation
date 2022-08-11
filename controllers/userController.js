@@ -15,6 +15,7 @@ module.exports.getAllUsers = (req, res, next) => {
 
 module.exports.getUserById = (req, res, next) => {
   User.findOne({ _id: req.params.id })
+
     .then((data) => {
       if (data == null) next(new Error("User is not found"));
       else res.status(200).json(data);
@@ -46,6 +47,13 @@ module.exports.getUserOrders = (req, res, next) => {
             _id: 0,
             pilotName: 1,
             pilotNumber: 1,
+          },
+        },
+        {
+          path: "orderItems",
+          select: {
+            itemName: 1,
+            itemPrice: 1,
           },
         },
       ],

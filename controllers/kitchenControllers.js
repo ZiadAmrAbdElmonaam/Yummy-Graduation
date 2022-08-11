@@ -105,7 +105,7 @@ module.exports.updateKitchen = (req, res, next) => {
         // .then(data)
         data.kitchenImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
         return data.save().then(res.status(200).json({ data: data }));
-      }else {
+      } else {
         for (let key in bodyData) {
           if (key == "kitchenOrders") {
             if (
@@ -126,9 +126,9 @@ module.exports.updateKitchen = (req, res, next) => {
             key === "apartment"
           ) {
             data.kitchenAddress[key] = bodyData[key];
-          } 
-          // else if(key==="menuId"){
-          //   continue 
+          }
+          // } else if (key === "menuId") {
+          //   continue;
           // }
           else {
             data[key] = bodyData[key];
@@ -180,6 +180,14 @@ module.exports.getKitchenOrders = (req, res, next) => {
             _id: 0,
             userFullName: 1,
             userPhone: 1,
+          },
+        },
+        {
+          path: "orderItems",
+          select: {
+            _id: 0,
+            itemName: 1,
+            itemPrice: 1,
           },
         },
         {

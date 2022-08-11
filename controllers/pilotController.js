@@ -67,8 +67,7 @@ module.exports.updateById = (req, res, next) => {
       if (req.file) {
         data.pilotLisenceImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
         return data.save().then(res.status(200).json({ data: "updated" }));
-      } 
-      else {
+      } else {
         for (let key in bodyData) {
           if (key == "orders") {
             if (
@@ -82,15 +81,15 @@ module.exports.updateById = (req, res, next) => {
             } else {
               throw new Error("orders should be unique");
             }
-          }
-          else if(key==="pilotPassword"){
+          } else if (key === "pilotPassword") {
             throw new Error("Can't Change Password Now");
-          } 
-          else {
+          } else {
             data[key] = bodyData[key];
           }
         }
-        return data.save().then(res.status(200).json({ data: "updated",data }));
+        return data
+          .save()
+          .then(res.status(200).json({ data: "updated", data }));
       }
     })
 
@@ -131,8 +130,8 @@ module.exports.getPilotOrders = (req, res, next) => {
           select: {
             _id: 0,
             userFullName: 1,
-            userAddress:1,
-            userPhone:1,
+            userAddress: 1,
+            userPhone: 1,
           },
         },
         {
@@ -140,18 +139,18 @@ module.exports.getPilotOrders = (req, res, next) => {
           select: {
             _id: 0,
             kitchenName: 1,
-            kitchenAddress:1,
-            kitchenPhone:1
+            kitchenAddress: 1,
+            kitchenPhone: 1,
           },
         },
         {
-          path:"orderItems",
-          select:{
-            _id:0,
-            itemName:1,
-            itemPrice:1
-          }
-        }
+          path: "orderItems",
+          select: {
+            _id: 0,
+            itemName: 1,
+            itemPrice: 1,
+          },
+        },
       ],
     })
 

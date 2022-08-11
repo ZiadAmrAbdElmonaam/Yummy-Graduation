@@ -8,12 +8,14 @@ const adminPassword = "admin";
 module.exports.login = (req, res, next) => {
 
     if (req.body.role === "user") {
-        console.log("hi");
+        // console.log("hi");
         User.findOne({
             userEmail: req.body.email
         })
 
             .then(data => {
+                console.log("data is ==========>" ,data)
+
                 bycrypt.compare(req.body.password, data.userPassword).then(isEqual => {
                     if (!isEqual) {
                         res.status(401).json({ data: 'invalid email or password' })
@@ -28,8 +30,8 @@ module.exports.login = (req, res, next) => {
                             },
                             process.env.secret, { expiresIn: "1h" })
                         // console.log(data._id)
-                        res.status(200).json({ token, data, msg: "login" })
-                        console.log("login", res)
+                        res.status(200).json({ token, data,id:data._id, msg: "login" })
+                        // console.log("login", res)
 
 
 
@@ -44,6 +46,7 @@ module.exports.login = (req, res, next) => {
         })
 
             .then(data => {
+
                 bycrypt.compare(req.body.password, data.kitchenPassword).then(isEqual => {
                     if (!isEqual) {
                         res.status(401).json({ data: 'invalid email or password' })
@@ -72,7 +75,6 @@ module.exports.login = (req, res, next) => {
         })
 
             .then(data => {
-                console.log(data)
                 bycrypt.compare(req.body.password, data.pilotPassword).then(isEqual => {
                     if (!isEqual) {
                         res.status(401).json({ data: 'invalid email or password' })
@@ -88,7 +90,7 @@ module.exports.login = (req, res, next) => {
 
                             process.env.secret, { expiresIn: "1h" })
                         // console.log("our id",{id:data._id})
-                        res.status(200).json({ token, msg: "login" })
+                        res.status(200).json({ token, data, msg: "login" })
                     }
                 })
             })

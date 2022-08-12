@@ -79,7 +79,7 @@ module.exports.updateItemById = (req, res, next) => {
 };
 //delete item by id
 module.exports.deleteItemById = (req, res, next) => {
-  Item.deleteOne({ _id: req.params.id, kitchenId: req.body.kitchenId })
+  Item.deleteOne({ _id: req.params.id, kitchenId: req.params.kitchenId })
     .then((data) => {
       if (data.deletedCount == 0) next(new Error("Item not found"));
       else res.status(200).json({ data: "deleted" });

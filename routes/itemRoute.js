@@ -41,17 +41,19 @@ router
   );
 
 router
-  .route("/menuItem/:id")
+  .route("/menuItem/:id/:kitchenId")
   .get(mwError, ItemController.getItemById)
   .all(
     authMW, (req, res, next) => {
     if (
-      (req.role == "kitchen" && req.id == req.body.kitchenId) ||
+      (req.role == "kitchen" && req.id == req.params.kitchenId) ||
       req.role == "admin"
     ) {
       next();
     } else {
+      error.status = 403;
       next(new Error("Unauthorized"));
+
     }
   })
   .put(itemValidationUpdate, mwError, ItemController.updateItemById)

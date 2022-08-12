@@ -88,9 +88,9 @@ module.exports.updateMenuById = (req, res, next) => {
 module.exports.deleteMenuItemById = (req, res, next) => {
   Menu.updateOne(
     { kitchen: req.params.id },
-    { $pull: { menuItems: { $eq: req.body.menuItems } } }
+    { $pull: { menuItems: { $eq: req.params.menuItems } } }
   ).then((data) => {
-    console.log(data);
+
     if (data.modifiedCount == 0) next(new Error("item not found"));
     else res.status(200).json({ data: "item deleted" });
   });

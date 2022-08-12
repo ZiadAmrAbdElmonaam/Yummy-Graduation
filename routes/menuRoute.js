@@ -58,7 +58,7 @@ router
   .delete(menuValidationdelete, mwError, MenuController.deleteMenuById);
 
 router
-  .route("/menu/item/:id")
+  .route("/menu/item/:id/:menuItems")
 
   .delete(
     authMw,

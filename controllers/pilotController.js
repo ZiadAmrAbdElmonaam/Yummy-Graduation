@@ -99,7 +99,7 @@ module.exports.updateById = (req, res, next) => {
 };
 
 module.exports.deleteById = (req, res, next) => {
-  Pilot.deleteOne({ nationalID: req.params._id })
+  Pilot.deleteOne({ _id: req.params.nationalID })
     .then((data) => {
       if (data.deletedCount == 0) next(new Error("Pilot not found"));
       else res.status(200).json({ data: "deleted" });
@@ -111,7 +111,7 @@ module.exports.deleteById = (req, res, next) => {
 
 module.exports.deletePilotOrder = (req, res, next) => {
   Pilot.updateOne(
-    { nationalID: req.params._id },
+    { _id: req.params.nationalID  },
     { $pull: { orders: { $eq: req.body.orders } } }
   ).then((data) => {
     console.log(data);
@@ -121,7 +121,7 @@ module.exports.deletePilotOrder = (req, res, next) => {
 };
 
 module.exports.getPilotOrders = (req, res, next) => {
-  Pilot.findOne({ nationalID: req.params._id })
+  Pilot.findOne({ _id: req.params.nationalID  })
     .populate({
       path: "orders",
       populate: [

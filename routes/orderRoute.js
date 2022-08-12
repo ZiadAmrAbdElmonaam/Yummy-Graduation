@@ -44,16 +44,25 @@ router
 
   .all(authMW, (req, res, next) => {
     if (
-      ((req.role == "kitchen" || req.role == "pilot" || req.role == "user") &&
-        req.orders.includes(Number(req.params.id))) ||
-      req.role == "admin"
+      req.role == "kitchen" ||
+      req.role == "user" ||
+      // req.orders.includes(Number(req.params.id))) ||
+      req.role == "admin" ||
+      req.role == "pilot"
     ) {
       console.log("req.orders: ", req.orders);
       console.log("order request", req.orders.includes(Number(req.params.id)));
+      console.log("order",req.body)
       next();
     } else {
+      // console.log("role",req.role)
+      // console.log("params id",req.params.id)
+      // console.log("kitchen orders",req.orders)
+      // console.log("order",req.body)
+      // console.log("include",req.orders.includes(Number(req.params.id)))
+
       res.status(403).json({
-        message: "You are not authorized to access this resource.",
+        message: "You are not authorized to access this resource from order.",
       });
     }
   })
@@ -89,10 +98,10 @@ router
 
   .all(authMW, (req, res, next) => {
     if (
-      ((req.role == "kitchen"  || req.role == "user") &&
+      ((req.role == "kitchen" || req.role == "user") &&
         req.orders.includes(Number(req.params.id))) ||
-      (req.role == "admin")|| (req.role == "pilot")
-
+      req.role == "admin" ||
+      req.role == "pilot"
     ) {
       console.log("req.orders: ", req.orders);
       console.log("order request", req.orders.includes(Number(req.params.id)));
@@ -114,11 +123,18 @@ router
     mwError,
     orderController.deleteOrderItemById
   );
-router.route("/onlineOrders")
-.get(orderController.getOnlineOrders)
-router.route("/pilotHistoryOrders/:nationalID")
-.get(orderController.getDeliveredOrders)
-router.route("/pilotOnlineOrders/:nationalID")
-.get(orderController.getPilotOnlineOrders)
+router.route("/onlineOrders").get(orderController.getOnlineOrders);
+router
+  .route("/pilotHistoryOrders/:nationalID")
+  .get(orderController.getDeliveredOrders);
+router
+  .route("/pilotOnlineOrders/:nationalID")
+  .get(orderController.getPilotOnlineOrders);
+router.route("/kitchenPendingOrders/:id")
+.get(orderController.getKitchenPendingOrders)  
+router.route("/kitchenCurrentOrders/:id")
+.get(orderController.getKitchenCurrentOrders)  
+router.route("/kitchenHistoryOrders/:id")
+.get(orderController.getKitchenHistoryOrders)  
 
 module.exports = router;

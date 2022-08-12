@@ -129,7 +129,7 @@ module.exports.getOnlineOrders = (req, res, next) => {
 // get dilevered orders
 module.exports.getDeliveredOrders = (req, res, next) => {
   Order.find({
-    nationalID: req.params.deliverypilot,
+    deliverypilot: req.params.nationalID,
     pilotOrderStatus: "dilevered",
   })
   .populate({
@@ -192,6 +192,104 @@ module.exports.getPilotOnlineOrders = (req, res, next) => {
     },
     
   })
+  .populate({
+    path: "orderItems",
+    select: {
+      _id: 0,
+      itemName: 1,
+      itemPrice: 1,
+    },
+    
+  })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+};
+// kitchenPendingOrders
+module.exports.getKitchenPendingOrders = (req, res, next) => {
+  Order.find({
+    kitchen: req.params.id,
+    kitchenOrderStatus: "pending",
+  })
+  .populate({
+    path: "userid",
+    select: {
+      _id: 0,
+      userFullName: 1,
+      userAddress: 1,
+      userPhone: 1,
+    },
+  })
+
+  .populate({
+    path: "orderItems",
+    select: {
+      _id: 0,
+      itemName: 1,
+      itemPrice: 1,
+    },
+    
+  })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+};
+//getKitchenCurrentOrders
+module.exports.getKitchenCurrentOrders = (req, res, next) => {
+  Order.find({
+    kitchen: req.params.id,
+    kitchenOrderStatus: ["accepted","inProgress"]
+ 
+  })
+  .populate({
+    path: "userid",
+    select: {
+      _id: 0,
+      userFullName: 1,
+      userAddress: 1,
+      userPhone: 1,
+    },
+  })
+
+  .populate({
+    path: "orderItems",
+    select: {
+      _id: 0,
+      itemName: 1,
+      itemPrice: 1,
+    },
+    
+  })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((error) => {
+      next(error);
+    });
+};
+//getKitchenHistoryOrders
+module.exports.getKitchenHistoryOrders = (req, res, next) => {
+  Order.find({
+    kitchen: req.params.id,
+    kitchenOrderStatus: ["completed"]
+ 
+  })
+  .populate({
+    path: "userid",
+    select: {
+      _id: 0,
+      userFullName: 1,
+      userAddress: 1,
+      userPhone: 1,
+    },
+  })
+
   .populate({
     path: "orderItems",
     select: {

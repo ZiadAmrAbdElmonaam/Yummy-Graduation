@@ -44,7 +44,7 @@ exports.orderValidationUpdate = [
     .withMessage("pilot order status must be one of the following: waiting, in the way, dilevered"),
     body("kitchenOrderStatus")
         .optional()
-        .isIn(["pending", "inProgress", "completed", "cancelled", "rejected"])
+        .isIn(["pending", "accepted", "inProgress", "rejected", "completed"])
         .withMessage("kitchen order status must be one of the following: pending, inProgress, completed, cancelled"),
 ];
 

@@ -69,7 +69,7 @@ module.exports.login = (req, res, next) => {
     }
     else if (req.body.role == "pilot") {
         pilot.findOne({
-            nationalID: req.body.email
+            _id: req.body.email
             // _id: req.body.email
 
         })

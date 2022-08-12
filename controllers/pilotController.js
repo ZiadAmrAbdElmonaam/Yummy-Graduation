@@ -16,7 +16,7 @@ module.exports.getAllpilots = (req, res, next) => {
 
 // get pilots by ID
 module.exports.getpilotById = (req, res, next) => {
-  Pilot.findOne({ nationalID: req.params.nationalID })
+  Pilot.findOne({ _id: req.params.nationalID })
     .then((data) => {
       console.log(data);
       res.status(200).json(data);
@@ -59,7 +59,7 @@ module.exports.addPilot = (req, res, next) => {
 };
 
 module.exports.updateById = (req, res, next) => {
-  Pilot.findOne({ nationalID: req.params.nationalID })
+  Pilot.findOne({ _id: req.params.nationalID })
     .then((data) => {
       console.log(data);
       let bodyData = req.body;

@@ -25,14 +25,14 @@ router
     MenuController.getAllMenu
   )
   .post(
-    // authMw,
-    // (req, res, next) => {
-    //   if (req.role == "kitchen") {
-    //     next();
-    //   } else {
-    //     next(new Error("Unauthorized"));
-    //   }
-    // },
+    authMw,
+    (req, res, next) => {
+      if (req.role == "kitchen") {
+        next();
+      } else {
+        next(new Error("Unauthorized"));
+      }
+    },
     menuValidationAdd,
     mwError,
     MenuController.createNewMenu
@@ -41,18 +41,18 @@ router
 router
   .route("/menu/:id")
 
-  // .all(authMw, (req, res, next) => {
-  //   if (
-  //     (req.role == "kitchen" && req.id == req.params.id) ||
-  //     req.role == "admin"
-  //   ) {
-  //     next();
-  //   } else {
-  //     let error = new Error("not authorized");
-  //     error.status = 403;
-  //     next(error);
-  //   }
-  // })
+  .all(authMw, (req, res, next) => {
+    if (
+      (req.role == "kitchen" && req.id == req.params.id) ||
+      req.role == "admin"
+    ) {
+      next();
+    } else {
+      let error = new Error("not authorized");
+      error.status = 403;
+      next(error);
+    }
+  })
   .get(mwError, MenuController.getMenuById)
   .put(menuValidationUpdate, mwError, MenuController.updateMenuById)
   .delete(menuValidationdelete, mwError, MenuController.deleteMenuById);
@@ -61,19 +61,19 @@ router
   .route("/menu/item/:id")
 
   .delete(
-    // authMw,
-    // (req, res, next) => {
-    //   if (
-    //     (req.role == "kitchen" && req.id == req.params.id) ||
-    //     req.role == "admin"
-    //   ) {
-    //     next();
-    //   } else {
-    //     let error = new Error("not authorized");
-    //     error.status = 403;
-    //     next(error);
-    //   }
-    // },
+    authMw,
+    (req, res, next) => {
+      if (
+        (req.role == "kitchen" && req.id == req.params.id) ||
+        req.role == "admin"
+      ) {
+        next();
+      } else {
+        let error = new Error("not authorized");
+        error.status = 403;
+        next(error);
+      }
+    },
     menuValidationDeleteMenuItem,
     mwError,
     MenuController.deleteMenuItemById

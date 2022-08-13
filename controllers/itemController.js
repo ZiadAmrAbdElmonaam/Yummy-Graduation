@@ -51,16 +51,17 @@ module.exports.createNewItem = (req, res, next) => {
 //update item by id
 module.exports.updateItemById = (req, res, next) => {
   if (req.file) {
-    Item.findOne({ _id: req.params.id,kitchenId: req.body.kitchenId })
-    .then((data)=>{
-      data.itemImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
-    // console.log("image", data.itemImage);
-    if (data == null) next(new Error("item not found"));
-    return data.save().then(res.status(200).json({ data: data }));
-    })
+    Item.findOne({ _id: req.params.id, kitchenId: req.params.kitchenId }).then(
+      (data) => {
+        data.itemImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
+        // console.log("image", data.itemImage);
+        if (data === null) next(new Error("item not found"));
+        return data.save().then(res.status(200).json({ data: data }));
+      }
+    );
   } else
     Item.updateOne(
-      { _id: req.params.id, kitchenId: req.body.kitchenId },
+      { _id: req.params.id, kitchenId: req.params.kitchenId },
       {
         $set: req.body,
       }

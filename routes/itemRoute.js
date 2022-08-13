@@ -51,7 +51,7 @@ router
     ) {
       next();
     } else {
-      error.status = 403;
+      // error.status = 403;
       next(new Error("Unauthorized"));
 
     }

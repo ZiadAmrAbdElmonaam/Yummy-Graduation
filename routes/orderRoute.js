@@ -52,7 +52,7 @@ router
     ) {
       console.log("req.orders: ", req.orders);
       console.log("order request", req.orders.includes(Number(req.params.id)));
-      console.log("order",req.body)
+      console.log("order", req.body);
       next();
     } else {
       // console.log("role",req.role)
@@ -130,11 +130,14 @@ router
 router
   .route("/pilotOnlineOrders/:nationalID")
   .get(orderController.getPilotOnlineOrders);
-router.route("/kitchenPendingOrders/:id")
-.get(orderController.getKitchenPendingOrders)  
-router.route("/kitchenCurrentOrders/:id")
-.get(orderController.getKitchenCurrentOrders)  
-router.route("/kitchenHistoryOrders/:id")
-.get(orderController.getKitchenHistoryOrders)  
+router
+  .route("/kitchenPendingOrders/:id")
+  .get(orderController.getKitchenPendingOrders);
+router
+  .route("/kitchenCurrentOrders/:id")
+  .get(orderController.getKitchenCurrentOrders);
+router
+  .route("/kitchenHistoryOrders/:id")
+  .get(orderController.getKitchenHistoryOrders);
 
 module.exports = router;

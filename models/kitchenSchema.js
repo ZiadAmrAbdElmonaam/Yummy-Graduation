@@ -23,7 +23,7 @@ const kitchenAddressSchema = new mongoose.Schema({
 //kitchen  schema:
 const kitchenSchema = new mongoose.Schema({
   _id: { type: Number },
-  kitchenName: { type: String, required: true, minlength: 5, maxlength: 50 },
+  kitchenName: { type: String, required: true, maxlength: 50 },
   kitchenCategeory: {
     type: String,
     required: true,

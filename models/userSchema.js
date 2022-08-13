@@ -32,7 +32,8 @@ const usersSchema = new mongoose.Schema({
         required: true,
         minlength: 10,
         maxlength: 50,
-        lowercase: true
+        lowercase: true,
+        unique:true
     },
 
     userPhone: { type: Number, unique: true, required: true, length: 11 },

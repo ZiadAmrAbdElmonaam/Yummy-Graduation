@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const pilotSchema = new mongoose.Schema({
-    _id: { type: Number, required: true, length: 14 },
+    _id: { type: Number, required: true, length: 14},
     pilotStatus: { type: String, required: true, default: "not avilable", enum: ["avilable", "not avilable"] },
     deliveryDeparture: { type: Date, default: Date.now, required: true },
     deliveryArrival: { type: Date, default: Date.now, required: true },
@@ -14,7 +14,7 @@ const pilotSchema = new mongoose.Schema({
 }
     , {
         _id: false
-    }
+    }   
 )
 module.exports = mongoose.model("pilots", pilotSchema);
 

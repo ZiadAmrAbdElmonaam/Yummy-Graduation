@@ -61,9 +61,9 @@ module.exports.addPilot = (req, res, next) => {
 module.exports.updateById = (req, res, next) => {
   Pilot.findOne({ _id: req.params.nationalID })
     .then((data) => {
-      console.log(data);
+      console.log("dataa",data);
       let bodyData = req.body;
-      console.log(bodyData);
+      console.log("body",bodyData);
       if (req.file) {
         data.pilotLisenceImage = `http://localhost:8080/avatars/images/${req.file.filename}`;
         return data.save().then(res.status(200).json({ data: "updated" }));
